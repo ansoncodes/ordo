@@ -34,8 +34,8 @@ That opens `http://localhost:3000` in your browser with a demo workspace you can
 | `#Work`, `#Home Renovation` | Project (created if it does not exist; multi-word names match existing projects) |
 | `@finance` | Tag |
 | `!p1` `!high` `!!!` `p2` | Priority (p1 critical, p2 high, p3 medium, p4 low) |
-| `today` `tomorrow` `friday` `next monday` `in 3 days` `in 2 weeks` `sep 15` `2026-10-01` `eow` `eom` `weekend` `tonight` | Due date |
-| `5pm` `at 17:30` `noon` | Due time |
+| `today` `tomorrow` `friday` `next monday` `in 3 days` `in ten days` `the day after tomorrow` `a week today` `a fortnight from now` `on the 20th` `end of the month` `beginning of october` `before october` `end of the week` `sep 15` `2026-10-01` `eow` `eom` `weekend` `tonight` | Due date |
+| `5pm` `at 17:30` `noon` `around 5` `at seven` `quarter past two` `half past four` `ten to six` `at 9 30` `3 in the evening` `first thing` `after lunch` `before bed` `close of play` | Due time. A bare hour reads as the afternoon (1-8 become 13:00-20:00, 9-12 are left as written) unless the sentence says otherwise: "three in the evening" is 15:00, "seven in the morning" is 07:00. |
 | `~45m` `1h30m` `2 hours` `in 10 mins` `for about 1h` | Estimate |
 | `every day` `every weekday` `every friday` `every 2 weeks` `monthly` `yearly` | Recurrence |
 | `^tomorrow` `^next monday` | Planned-for date (when you will work on it), separate from the deadline |
@@ -66,6 +66,46 @@ Timings are from a laptop CPU after warm-up. The first sentence after launch als
 - Any GGUF model with a Qwen2 or Llama architecture can be added to `src/ai.rs`, including a purpose-trained tiny one.
 - Speed: the fixed part of the prompt is processed once per day and cached, so a sentence takes well under a second on a laptop CPU after the first use (which loads the model, a few seconds). `.cargo/config.toml` enables AVX2/FMA so the SIMD kernels are used; the resulting binaries need a CPU from 2013 or later.
 
+## How well does it understand you?
+
+`eval/gold.json` is a benchmark of 306 hand-written sentences — typos, slang, conversational
+filler, vague times, and deliberate traps like "buy sun cream" and "the finance folder" that must
+*not* be read as a Sunday or a tag. Each case records both the ideal parse and the spans it comes
+from, so the same file scores the parser and could train a model.
+
+```
+cargo run --bin bench          # the table
+cargo run --bin bench -- -v    # every failure, slot by slot
+```
+
+Scored per slot, with a separate count for values the engine *invented* when the sentence gave
+none — the number that matters most for a to-do app, since a phantom deadline is worse than a
+missing one:
+
+```
+                     parser
+Title                 53.3%
+Date (recall)         88.0%
+Time (recall)         84.0%
+Exact match           51.3%
+Invented values           8   across all slots
+```
+
+Exact match is harsh on purpose: every slot must be right, so a perfect date with filler left in
+the title still fails.
+
+### The span-tagger experiment
+
+`eval/` also contains a finished experiment in replacing the 676 MB language model with something
+small enough to ship inside the binary. A 22M-parameter encoder tags each word of the sentence —
+title, date, time, priority — and Rust resolves the tagged spans. Because it labels input rather
+than generating text, it cannot reword a title or invent a value.
+
+It works: **67.0% exact match against the parser's 51.3%**, at 2 ms per sentence instead of 800 ms,
+and vocabulary pruning takes it from 90 MB to 65 MB for 0.4 points. **It is not wired into the app** —
+Ordo still ships the optional Qwen download described above. The pipeline, the measurements, and
+the two hypotheses that turned out to be wrong are written up in [eval/README.md](eval/README.md).
+
 ## Running
 
 Requirements: a Rust toolchain (1.75+). No database, Node, or build step.
@@ -75,6 +115,7 @@ cargo run --release              # builds and starts, opens the browser
 cargo run --release -- --no-open # do not open the browser
 cargo run --release -- --port 8080 --data ~/ordo-data
 cargo test                       # parser, priority engine and recurrence tests
+cargo run --bin bench            # score the parser against eval/gold.json
 ```
 
 | Option / env | Default | Purpose |
@@ -119,6 +160,12 @@ src/
   analytics.rs   Streaks, rates, time series
   store.rs       In-memory database with atomic JSON persistence
   seed.rs        Demo workspace
+  bin/bench.rs   Scores the parser against the benchmark in eval/
+eval/
+  gold.json      306 hand-written cases: what the app should understand
+  cases.txt      Source form of those cases; compiled by compile_gold.py
+  generate.py    Synthetic training data for the span-tagger experiment
+  train.py, predict.py, shrink.py   The tagger pipeline (research, not shipped)
 static/
   index.html, app.css, app.js   The web UI (vanilla JS, no framework, no CDN)
 src-tauri/
