@@ -1,0 +1,36 @@
+[package]
+name = "ordo"
+version = "0.1.0"
+edition = "2021"
+description = "Ordo - priority-first task management, built in Rust"
+license = "MIT"
+
+[workspace]
+members = ["src-tauri"]
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+open = "5"
+
+# On-device AI: quantized small language model run with candle (pure Rust, CPU).
+candle-core = "0.11"
+candle-nn = "0.11"
+candle-transformers = "0.11"
+tokenizers = { version = "0.23", default-features = false, features = ["onig"] }
+ureq = { version = "3", default-features = false, features = ["rustls"] }
+tracing = "0.1"
+
+# Optimise dependencies even in dev builds so on-device inference is usable from `cargo run`.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

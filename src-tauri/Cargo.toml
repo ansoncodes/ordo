@@ -1,0 +1,22 @@
+[package]
+name = "ordo-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "Ordo desktop application: the Ordo server and web UI in a native window"
+license = "MIT"
+
+# Standard Tauri v2 layout: the app lives in a library so the same code can be
+# used by the desktop binary (and, later, mobile targets).
+[lib]
+name = "ordo_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+ordo = { path = ".." }
+tauri = { version = "2", features = [] }
+tokio = { version = "1", features = ["net"] }
+axum = "0.8"
+chrono = "0.4"

@@ -1,0 +1,15 @@
+/target
+/data
+/src-tauri/target
+/src-tauri/gen
+*.log
+/eval/synthetic.jsonl
+/eval/spans.jsonl
+__pycache__/
+/eval/oracle.jsonl
+/eval/predictions*.jsonl
+/eval/model*/
+/eval/model-v*/
+
+# Generated launch/marketing output (11MB of video + composition assets)
+/brag-output/

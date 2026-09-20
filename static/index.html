@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ordo — priority-first tasks</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M16 7l9 9-9 9-9-9z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 7l9 9-9 9-9-9z" fill="currentColor"/></svg></div>
+        <div class="brand-name">Ordo</div>
+        <button class="icon-btn brand-collapse" data-action="toggle-sidebar" title="Collapse sidebar">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+        </button>
+      </div>
+
+      <button class="btn btn-primary btn-block new-task-btn" data-action="new-task">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span>New task</span>
+        <kbd>N</kbd>
+      </button>
+
+      <nav class="nav" id="nav-views" aria-label="Views"></nav>
+
+      <div class="nav-section">
+        <div class="nav-section-header">
+          <span>Projects</span>
+          <button class="icon-btn icon-btn-xs" data-action="new-project" title="New project">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div id="nav-projects" class="nav"></div>
+      </div>
+
+      <div class="nav-section" id="tags-section">
+        <div class="nav-section-header"><span>Tags</span></div>
+        <div id="nav-tags" class="tag-cloud"></div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="user" data-action="open-settings" title="Profile & settings">
+          <div class="avatar" id="avatar">Y</div>
+          <div class="user-text">
+            <div class="user-name" id="user-name">You</div>
+            <div class="user-ws" id="workspace-name">My Workspace</div>
+          </div>
+        </button>
+        <button class="icon-btn" data-action="open-settings" title="Settings">
+          <svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" data-action="toggle-sidebar" title="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="topbar-title">
+          <h1 id="view-title">Today</h1>
+          <p id="view-subtitle"></p>
+        </div>
+        <div class="topbar-actions">
+          <div class="search" id="search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="search-input" type="search" placeholder="Search tasks" autocomplete="off" spellcheck="false">
+            <kbd>/</kbd>
+          </div>
+          <button class="btn btn-ghost btn-sm palette-btn" data-action="open-palette" title="Command palette (Ctrl+K)">
+            <svg viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+            <span>Commands</span>
+            <kbd>Ctrl K</kbd>
+          </button>
+          <button class="icon-btn" id="theme-btn" data-action="toggle-theme" title="Toggle theme"></button>
+        </div>
+      </header>
+
+      <div class="quick-add-wrap" id="quick-add-wrap">
+        <form class="quick-add" id="quick-add-form" autocomplete="off">
+          <span class="quick-add-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          <input id="quick-add" type="text" placeholder='Add a task… try "Call Sam tomorrow 3pm !p1 #Personal ~30m"' spellcheck="false">
+          <button type="button" class="icon-btn quick-add-ai" data-action="ai-normalize" title="Clean up this sentence with the on-device AI" hidden>
+            <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.7 5.7 1.9-5.7 1.9L12 18.2l-1.9-5.7L4.4 10.6l5.7-1.9z"/></svg>
+          </button>
+          <button type="button" class="icon-btn quick-add-help" data-action="open-syntax-help" title="Quick-add syntax">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          </button>
+          <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </form>
+        <div id="parse-preview" class="parse-preview" hidden></div>
+      </div>
+
+      <section id="content" class="content" aria-live="polite"></section>
+    </main>
+
+    <aside class="detail" id="detail" hidden></aside>
+  </div>
+
+  <div id="bulk-bar" class="bulk-bar" hidden></div>
+  <div id="focus-widget" class="focus-widget" hidden></div>
+  <div id="palette" class="overlay" hidden></div>
+  <div id="modal" class="overlay" hidden></div>
+  <div id="toasts" class="toasts" aria-live="assertive"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
