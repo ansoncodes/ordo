@@ -11,5 +11,7 @@ __pycache__/
 /eval/model*/
 /eval/model-v*/
 
-# Generated launch/marketing output (11MB of video + composition assets)
-/brag-output/
+# Generated launch/marketing output: video, stills, plans, composition assets.
+# Unanchored so it matches at any depth, not just the project root.
+brag*
+brag-output/
