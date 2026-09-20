@@ -1,0 +1,883 @@
+// Hand-written gold cases. Compiled into gold.json by compile_gold.py.
+//
+// DISCIPLINE: none of the vocabulary here may be copied from generate.py. Gold exists to
+// measure generalisation to phrasings the generator never produced; reusing its titles,
+// fillers, time words or priority phrases turns the test set into a paraphrase of the
+// training set and inflates every number.
+//
+// Format:  id | today | categories
+//          text with [span|LABEL] and [span|LABEL:resolved-value]
+//          > title:override      (only when the ideal title is not the TITLE span)
+//          # explanatory note
+//          !review               (expectation is a product decision, not a fact)
+//
+// Reference dates: 2026-09-14 Mon · 2026-09-16 Wed · 2026-09-18 Fri
+
+// ===========================================================================
+// Conversational phrasing and filler prefixes
+// ===========================================================================
+
+conv-020 | 2026-09-14 | conversational,filler-prefix
+be sure to [ring the dentist|TITLE] [first thing|TIME:09:00] [on tuesday|DATE:2026-09-15]
+
+conv-021 | 2026-09-14 | conversational,filler-prefix
+put it on the list to [collect the dry cleaning|TITLE] [wednesday|DATE:2026-09-16]
+
+conv-022 | 2026-09-14 | conversational,filler-prefix
+i ought to [sharpen the mower blades|TITLE] [before the weekend|DATE:2026-09-19]
+!review
+# "before the weekend" assumed to mean Saturday.
+
+conv-023 | 2026-09-16 | conversational,filler-prefix
+on my list: [register the puppy with the vet|TITLE] [thursday|DATE:2026-09-17]
+
+conv-024 | 2026-09-14 | conversational,filler-prefix
+we should really [audit the storeroom stock|TITLE] [this week|DATE:2026-09-18]
+!review
+# "this week" assumed to mean end of the working week.
+
+conv-025 | 2026-09-14 | conversational,filler-clause
+[patch the plasterboard|TITLE] if i get five minutes
+
+conv-026 | 2026-09-14 | conversational,filler-prefix
+mustn't forget to [photograph the meter reading|TITLE] [today|DATE:2026-09-14]
+
+conv-027 | 2026-09-18 | conversational,filler-prefix
+first job: [bleed the radiators|TITLE]
+
+conv-028 | 2026-09-14 | conversational,filler-prefix
+action: [countersign the lease addendum|TITLE] [by the 25th|DATE:2026-09-25]
+
+conv-029 | 2026-09-14 | conversational,filler-prefix,filler-clause
+quick one, [descale the coffee machine|TITLE] whenever there's a gap
+
+conv-030 | 2026-09-16 | conversational,filler-prefix
+worth [shortlisting the applicants|TITLE] [before friday|DATE:2026-09-18]
+
+conv-031 | 2026-09-14 | conversational,filler-prefix
+let's [brief the new starter|TITLE] [tomorrow|DATE:2026-09-15] [mid-morning|TIME:10:00]
+!review
+# "mid-morning" assumed 10:00.
+
+conv-032 | 2026-09-14 | conversational,filler-prefix
+next up: [trim the hedge out front|TITLE]
+
+conv-033 | 2026-09-14 | conversational,passive-voice
+[the storeroom needs restocking|TITLE] [on thursday|DATE:2026-09-17]
+> title:restock the storeroom
+!review
+# Passive phrasing. A tagger can only select the span, never reword it.
+
+conv-034 | 2026-09-18 | conversational,filler-prefix
+small thing: [swap the office chair casters|TITLE]
+
+conv-035 | 2026-09-14 | conversational,filler-clause
+[index the archive boxes|TITLE] at some stage [this month|DATE:2026-09-30]
+
+conv-036 | 2026-09-14 | conversational,filler-prefix
+top of the list: [wire the deposit to the agent|TITLE] [today|DATE:2026-09-14] [this can't slip|PRIORITY_P1]
+
+conv-037 | 2026-09-16 | conversational,filler-prefix
+try to [prune the apple tree|TITLE] [saturday|DATE:2026-09-19]
+
+conv-038 | 2026-09-14 | conversational,filler-prefix
+add a reminder to [renew the food hygiene cert|TITLE] [end of the month|DATE:2026-09-30]
+
+conv-039 | 2026-09-14 | conversational,passive-voice
+[the generator ought to be tested|TITLE] [before october|DATE:2026-09-30]
+> title:test the generator
+!review
+# Passive; also "before october" assumed to mean the last day of September.
+
+conv-040 | 2026-09-14 | conversational,filler-prefix
+whatever happens, [post the passport application|TITLE] [tomorrow|DATE:2026-09-15]
+
+conv-041 | 2026-09-18 | conversational,filler-clause
+[laminate the safety notices|TITLE] when the printer is free
+
+conv-042 | 2026-09-14 | conversational,filler-prefix
+before anything else, [restock the first aid kit|TITLE]
+
+conv-043 | 2026-09-16 | conversational,filler-prefix
+i keep meaning to [digitise the receipts|TITLE]
+
+conv-044 | 2026-09-14 | conversational,filler-prefix,filler-clause
+would be good to [varnish the bannister|TITLE] if the weather turns
+
+// ===========================================================================
+// Soft priority language
+// ===========================================================================
+
+prio-020 | 2026-09-14 | soft-priority
+[dispute the parking ticket|TITLE], [this can't slip|PRIORITY_P1]
+
+prio-021 | 2026-09-14 | soft-priority
+[shred the old statements|TITLE] — [totally optional|PRIORITY_P4]
+
+prio-022 | 2026-09-14 | soft-priority
+[calibrate the scales|TITLE], [mission critical|PRIORITY_P1]
+
+prio-023 | 2026-09-16 | soft-priority
+[re-grout the kitchen splashback|TITLE], [would be nice|PRIORITY_P4]
+
+prio-024 | 2026-09-14 | soft-priority
+[chase the warranty claim|TITLE] — [matters a lot|PRIORITY_P2]
+
+prio-025 | 2026-09-14 | soft-priority
+[seal the driveway cracks|TITLE], [only if time allows|PRIORITY_P4]
+
+prio-026 | 2026-09-18 | soft-priority
+[notarise the affidavit|TITLE], [needs attention now|PRIORITY_P1]
+
+prio-027 | 2026-09-14 | soft-priority
+[rotate the tyres|TITLE], [reasonably pressing|PRIORITY_P2]
+
+prio-028 | 2026-09-14 | soft-priority
+[unsubscribe from the junk lists|TITLE] — [bottom of the pile|PRIORITY_P4]
+
+prio-029 | 2026-09-16 | soft-priority
+[make this the priority|PRIORITY_P1]: [back-fill the trench|TITLE]
+
+prio-030 | 2026-09-14 | soft-priority
+[transcribe the interview tapes|TITLE], [not fussed|PRIORITY_P4] when
+
+prio-031 | 2026-09-14 | soft-priority
+[cancel the gym direct debit|TITLE] — [this is the big one|PRIORITY_P1]
+
+prio-032 | 2026-09-14 | soft-priority
+[measure the loft hatch|TITLE], [middling|PRIORITY_P3]
+
+prio-033 | 2026-09-18 | soft-priority
+[service the boiler|TITLE] — [absolutely must happen|PRIORITY_P1]
+
+prio-034 | 2026-09-14 | soft-priority
+[label the freezer drawers|TITLE], [can wait forever|PRIORITY_P4]
+
+prio-035 | 2026-09-14 | soft-priority
+[reconcile the petty cash tin|TITLE], [highest on the list|PRIORITY_P1]
+
+prio-036 | 2026-09-16 | soft-priority
+[replace the shed padlock|TITLE] — [big deal if it slips|PRIORITY_P2]
+
+prio-037 | 2026-09-14 | soft-priority,conversational
+really [ought to be careful with this one|PRIORITY_P2], [drain the hot tub|TITLE]
+!review
+# Priority expressed as a whole clause. Confirm whether this should score as p2 at all.
+
+prio-038 | 2026-09-14 | soft-priority
+[scan the old negatives|TITLE], [don't care when|PRIORITY_P4]
+
+prio-039 | 2026-09-14 | soft-priority
+[book a slot at the tip|TITLE] — [fairly pressing|PRIORITY_P2]
+
+// ===========================================================================
+// Fuzzy and vague time
+// ===========================================================================
+
+time-020 | 2026-09-14 | fuzzy-time,time
+[collect the prescription glasses|TITLE] [at quarter past two|TIME:14:15]
+
+time-021 | 2026-09-14 | fuzzy-time,time
+[return the faulty kettle|TITLE] [half past four|TIME:16:30]
+
+time-022 | 2026-09-16 | fuzzy-time,time
+[brief the contractors|TITLE] [at seven sharp|TIME:19:00]
+!review
+# Seven with no am/pm marker; evening assumed.
+
+time-023 | 2026-09-14 | fuzzy-time,vague-time
+[drop the keys at the agent|TITLE] [just before eleven|TIME:11:00]
+
+time-024 | 2026-09-14 | vague-time
+[defragment the archive drive|TITLE] [last thing|TIME:17:00]
+!review
+# "last thing" assumed end of the working day.
+
+time-025 | 2026-09-14 | fuzzy-time,time
+[ring the surveyor|TITLE] [dead on 2|TIME:14:00]
+
+time-026 | 2026-09-18 | vague-time
+[water the seedlings|TITLE] [before the shops shut|TIME:17:00]
+!review
+# Assumed 17:00.
+
+time-027 | 2026-09-14 | fuzzy-time,time
+[submit the meter photo|TITLE] [by 11am latest|TIME:11:00]
+
+time-028 | 2026-09-14 | vague-time
+[call the roofer|TITLE] [during the lunch break|TIME:13:00]
+!review
+
+time-029 | 2026-09-16 | fuzzy-time,time
+[unlock the workshop door|TITLE] [when the office opens|TIME:09:00]
+!review
+
+time-030 | 2026-09-14 | fuzzy-time,time
+[email the accountant|TITLE] [at 2 o'clock|TIME:14:00]
+
+time-031 | 2026-09-14 | fuzzy-time,time
+[feed the fish|TITLE] [ten to six|TIME:17:50]
+
+time-032 | 2026-09-14 | vague-time
+[stack the dishwasher|TITLE] [before bed|TIME:21:00]
+!review
+
+time-033 | 2026-09-18 | fuzzy-time,time
+[close the till|TITLE] [at close of play|TIME:17:00]
+!review
+
+time-034 | 2026-09-14 | vague-time
+[drop the twins at swimming|TITLE] [straight after the school run|TIME:09:00]
+!review
+
+time-035 | 2026-09-14 | fuzzy-time,time
+[ping the supplier|TITLE] [no later than 5|TIME:17:00]
+
+// ===========================================================================
+// Abbreviations and slang
+// ===========================================================================
+
+slang-010 | 2026-09-14 | abbreviation,slang
+[sort the recycling|TITLE] [b4|DATE:2026-09-15] the collection
+!review
+# "b4" is a preposition here, not a date word. Confirm whether this should have a date at all.
+
+slang-011 | 2026-09-14 | abbreviation
+[chase the invoice|TITLE] [asap|PRIORITY_P1]
+
+slang-013 | 2026-09-14 | abbreviation,slang
+[book the van in for its MOT|TITLE] [thurs|DATE:2026-09-17] [am|TIME:09:00]
+
+slang-014 | 2026-09-14 | abbreviation
+[email hr re the contract|TITLE] [mon|DATE:2026-09-21]
+!review
+# From a Monday, bare "mon" could mean today or next week. Assumed next Monday.
+
+slang-015 | 2026-09-18 | abbreviation,slang,uncommon-phrasing
+[crack on with the quotes|TITLE] after the brew
+!review
+# Trailing clause is not metadata and not part of the title.
+
+slang-016 | 2026-09-14 | abbreviation
+[send the spec thru|TITLE] [tmw|DATE:2026-09-15]
+
+slang-017 | 2026-09-14 | abbreviation,slang
+[gimme a shout about the fence|TITLE] [sat|DATE:2026-09-19]
+
+slang-018 | 2026-09-16 | abbreviation
+[wfh thursday — prep the deck|TITLE]
+!review
+# "thursday" here modifies wfh, not the task deadline. Confirm.
+
+slang-019 | 2026-09-14 | abbreviation
+[approve the po|TITLE] [eod|DATE:2026-09-14]
+
+slang-020 | 2026-09-14 | abbreviation,slang
+[nip to the tip|TITLE] [this arvo|TIME:14:00]
+!review
+# Australian slang for afternoon.
+
+// ===========================================================================
+// Hard negatives: project / tag / month / weekday words as ordinary English
+// ===========================================================================
+
+trap-010 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[book a personal trainer session|TITLE]
+
+trap-011 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[request admin rights for the new laptop|TITLE]
+
+trap-012 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[file the health and safety review|TITLE]
+
+trap-013 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[print the finance director's report|TITLE]
+
+trap-014 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[find the workshop manual for the van|TITLE]
+
+trap-015 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[update the sat nav maps|TITLE]
+# "sat" must not read as Saturday.
+
+trap-016 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[may i borrow the pressure washer|TITLE]
+# "may" as a verb.
+
+trap-017 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[order a sun lounger|TITLE]
+
+trap-018 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[rehearse for the march past|TITLE]
+
+trap-019 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[hang the april showers display|TITLE]
+
+trap-020 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[the errands list needs a tidy|TITLE]
+
+trap-021 | 2026-09-14 | hard-negative,ambiguous-duration,no-metadata
+[buy a table for six|TITLE]
+
+trap-022 | 2026-09-14 | hard-negative,ambiguous-duration,no-metadata
+[count out 30 raffle tickets|TITLE]
+
+trap-023 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[label the august stock take boxes|TITLE]
+
+trap-024 | 2026-09-14 | hard-negative,no-metadata
+[ring 3 plumbers for quotes|TITLE]
+
+trap-025 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[cancel the personal training block|TITLE]
+
+trap-026 | 2026-09-14 | hard-negative,url,no-metadata
+[bookmark https://example.org/tools/may-calendar|TITLE]
+# The URL contains "may" and a "//" that must not start notes.
+
+trap-027 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[frame the wednesday addams poster|TITLE]
+
+trap-028 | 2026-09-14 | hard-negative,no-metadata
+[weigh out 5 kg of feed|TITLE]
+
+trap-029 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[archive the workshop floor plans|TITLE]
+
+trap-030 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[repair the sunday best suit|TITLE]
+
+trap-031 | 2026-09-14 | hard-negative,no-metadata
+[split the bill 4 ways|TITLE]
+
+trap-032 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[reply about the finance lease enquiry|TITLE]
+
+trap-033 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[dig over the march planting bed|TITLE]
+
+trap-034 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[renew the health insurance paperwork|TITLE]
+
+// ===========================================================================
+// Dates: relative, ambiguous, day-of-month
+// ===========================================================================
+
+date-020 | 2026-09-14 | relative-date
+[collect the hire car|TITLE] [the day after tomorrow|DATE:2026-09-16]
+
+date-021 | 2026-09-14 | relative-date
+[chase the surveyor report|TITLE] [a week today|DATE:2026-09-21]
+
+date-022 | 2026-09-14 | relative-date
+[renew the parking permit|TITLE] [in ten days|DATE:2026-09-24]
+
+date-023 | 2026-09-14 | day-of-month
+[settle the card bill|TITLE] [on the 25th|DATE:2026-09-25]
+
+date-024 | 2026-09-14 | ambiguous-date
+[submit the grant claim|TITLE] [start of next month|DATE:2026-10-01]
+
+date-025 | 2026-09-16 | ambiguous-date
+[switch the heating over|TITLE] [beginning of october|DATE:2026-10-01]
+
+date-026 | 2026-09-14 | relative-date
+[review the trial results|TITLE] [a fortnight from now|DATE:2026-09-28]
+
+date-027 | 2026-09-18 | ambiguous-date
+[strip the guest bed|TITLE] [over the weekend|DATE:2026-09-19]
+
+date-028 | 2026-09-14 | relative-date
+[post the rent cheque|TITLE] [this friday|DATE:2026-09-18]
+
+date-029 | 2026-09-16 | relative-date
+[empty the gutters|TITLE] [sunday|DATE:2026-09-20]
+
+date-030 | 2026-09-14 | ambiguous-date
+[order the winter oil|TITLE] [before the month is out|DATE:2026-09-30]
+
+date-031 | 2026-09-14 | relative-date,leading-date
+[thursday|DATE:2026-09-17]: [drop the samples at the lab|TITLE]
+
+date-032 | 2026-09-18 | relative-date
+[defrost the chest freezer|TITLE] [monday|DATE:2026-09-21]
+
+date-033 | 2026-09-14 | ambiguous-date
+[confirm the caterers|TITLE] [later this week|DATE:2026-09-18]
+!review
+# "later this week" assumed end of the working week.
+
+date-034 | 2026-09-14 | relative-date
+[return the library books|TITLE] [in 2 days|DATE:2026-09-16]
+
+date-035 | 2026-09-14 | ambiguous-date
+[pay the window cleaner|TITLE] [early next week|DATE:2026-09-21]
+!review
+
+date-036 | 2026-09-16 | day-of-month
+[send the quarterly figures|TITLE] [on the 30th|DATE:2026-09-30]
+
+date-037 | 2026-09-14 | explicit-date
+[renew the vehicle tax|TITLE] [2026-11-01|DATE:2026-11-01]
+
+date-038 | 2026-09-14 | explicit-date
+[book the flu jab|TITLE] [oct 3|DATE:2026-10-03]
+
+date-039 | 2026-09-14 | relative-date,scheduled
+[^wednesday|SCHEDULED:2026-09-16] [draft the tender response|TITLE]
+
+// ===========================================================================
+// Recurrence
+// ===========================================================================
+
+recur-010 | 2026-09-14 | recurrence
+[top up the bird feeder|TITLE] [every single day|RECURRENCE:Every day]
+> due_date:2026-09-14
+
+recur-011 | 2026-09-14 | recurrence
+[empty the office bins|TITLE] [each weekday|RECURRENCE:Every weekday]
+> due_date:2026-09-14
+
+recur-012 | 2026-09-14 | recurrence
+[run the payroll export|TITLE] [on tuesdays|RECURRENCE:Every Tuesday]
+> due_date:2026-09-15
+
+recur-013 | 2026-09-14 | recurrence,uncommon-phrasing
+[deep clean the fryer|TITLE] [every second tuesday|RECURRENCE:Every 2 weeks on Tuesday]
+> due_date:2026-09-15
+!review
+# Confirm the parser supports "every second <weekday>".
+
+recur-014 | 2026-09-14 | recurrence
+[reconcile the card machine|TITLE] [on a monthly basis|RECURRENCE:Every month]
+> due_date:2026-09-14
+
+recur-015 | 2026-09-14 | recurrence
+[service the extractor fan|TITLE] [once a year|RECURRENCE:Every year]
+> due_date:2026-09-14
+
+recur-016 | 2026-09-14 | recurrence
+[change the water filter|TITLE] [every 4 days|RECURRENCE:Every 4 days]
+> due_date:2026-09-14
+
+recur-017 | 2026-09-14 | recurrence,uncommon-phrasing
+[audit the fire doors|TITLE] [every 3 months|RECURRENCE:Every 3 months]
+> due_date:2026-09-14
+!review
+
+recur-018 | 2026-09-16 | recurrence
+[wipe down the shelves|TITLE] [every wednesday|RECURRENCE:Every Wednesday]
+> due_date:2026-09-16
+
+// ===========================================================================
+// Durations
+// ===========================================================================
+
+dur-010 | 2026-09-14 | duration
+[hoover the stairs|TITLE], [a good half hour|DURATION:30]
+
+dur-011 | 2026-09-14 | duration
+[refile the invoices|TITLE] - [twenty minutes or so|DURATION:20]
+
+dur-012 | 2026-09-14 | duration
+[strip the wallpaper|TITLE], [the best part of an hour|DURATION:60]
+!review
+
+dur-013 | 2026-09-16 | duration
+[draft the handover note|TITLE], [three quarters of an hour|DURATION:45]
+
+dur-014 | 2026-09-14 | duration
+[reset the router|TITLE] - [ten minutes tops|DURATION:10]
+
+dur-015 | 2026-09-14 | duration
+[sand the window frames|TITLE], [a couple of hours|DURATION:120]
+
+dur-016 | 2026-09-14 | duration
+[proofread the flyer|TITLE] [~40m|DURATION:40]
+
+dur-017 | 2026-09-18 | duration
+[rewire the lamp|TITLE], [1.5 hours|DURATION:90]
+!review
+
+// ===========================================================================
+// Projects, tags and mixed explicit syntax
+// ===========================================================================
+
+proj-010 | 2026-09-14 | project,explicit-syntax
+[commission the survey|TITLE] [#Home Renovation|PROJECT] [friday|DATE:2026-09-18]
+
+proj-011 | 2026-09-14 | project,bare-project-name
+[write up the threat model|TITLE] [for Hacking Challenge|PROJECT]
+
+proj-012 | 2026-09-16 | project,bare-project-name,tag
+[invoice the retainer|TITLE] [for SMEC Technologies|PROJECT] [@finance|TAG]
+
+proj-013 | 2026-09-14 | tag,explicit-syntax
+[book the blood test|TITLE] [@health|TAG] [tuesday|DATE:2026-09-15]
+
+proj-014 | 2026-09-14 | tag,project,duration,explicit-syntax
+[reglaze the back door|TITLE] [#Home Renovation|PROJECT] [@errands|TAG] [~2h|DURATION:120]
+
+proj-015 | 2026-09-14 | project,explicit-syntax
+[set up the soldering bench|TITLE] [#Workshop|PROJECT]
+
+proj-016 | 2026-09-14 | tag
+[collect the repeat script|TITLE] [@health|TAG] [@errands|TAG]
+
+// ===========================================================================
+// Checklists and notes
+// ===========================================================================
+
+list-010 | 2026-09-14 | checklist,explicit-syntax
+[repaint the porch|TITLE] [+sand|STEP] [+undercoat|STEP] [+topcoat|STEP]
+
+list-011 | 2026-09-14 | notes,explicit-syntax
+[book the chimney sweep|TITLE] // [they only do mornings|NOTE]
+
+list-012 | 2026-09-16 | checklist,notes,explicit-syntax
+[close the old account|TITLE] [+download statements|STEP] [+cancel standing orders|STEP] // [bring two forms of id|NOTE]
+
+list-013 | 2026-09-14 | notes
+[query the water bill|TITLE] // [meter was read in july|NOTE]
+
+// ===========================================================================
+// Very short and very long
+// ===========================================================================
+
+short-010 | 2026-09-14 | very-short,no-metadata
+[bins|TITLE]
+
+short-011 | 2026-09-14 | very-short,no-metadata
+[passport photos|TITLE]
+
+short-012 | 2026-09-14 | very-short,time
+[haircut|TITLE] [at 4|TIME:16:00]
+> due_date:2026-09-14
+
+short-013 | 2026-09-14 | very-short,no-metadata
+[dentist|TITLE]
+
+short-014 | 2026-09-14 | very-short,soft-priority
+[mot|TITLE], [urgent|PRIORITY_P1]
+
+long-010 | 2026-09-14 | very-long,conversational,soft-priority
+right, [get three quotes for re-pointing the back wall|TITLE] [before the end of the month|DATE:2026-09-30] because the scaffolding comes down then, [fairly pressing|PRIORITY_P2]
+
+long-011 | 2026-09-16 | very-long,conversational,duration
+[sort out the loft insulation paperwork|TITLE] for the grant people, [probably an hour and a half|DURATION:90] of digging through the folder
+!review
+
+long-012 | 2026-09-14 | very-long,conversational
+[speak to the neighbours about the boundary hedge|TITLE] [saturday|DATE:2026-09-19] while everyone is actually in
+
+long-013 | 2026-09-14 | very-long,conversational,checklist
+[plan the open day|TITLE]: [+book the marquee|STEP] [+order the signage|STEP] [+brief the volunteers|STEP], all of it [before the 25th|DATE:2026-09-25]
+
+// ===========================================================================
+// Semantic inference: needs world knowledge, expected to be hard
+// ===========================================================================
+
+semantic-010 | 2026-09-14 | semantic-inference,unresolvable-date
+[sign off the drawings|TITLE] once the structural engineer comes back
+
+semantic-011 | 2026-09-14 | semantic-inference,unresolvable-date
+[order the replacement glass|TITLE] after the fitter has measured up
+
+semantic-012 | 2026-09-14 | semantic-inference,no-metadata
+[pick up where we left off on the ventilation issue|TITLE]
+
+semantic-013 | 2026-09-14 | semantic-inference,unresolvable-date
+[settle up with dave|TITLE] when the job is finally signed off
+
+semantic-014 | 2026-09-16 | semantic-inference,no-metadata
+[work out what to do about the damp|TITLE]
+
+// ===========================================================================
+// Typos
+// ===========================================================================
+
+typo-010 | 2026-09-14 | typo
+[colect the parcle|TITLE] [tommorow|DATE:2026-09-15]
+
+typo-011 | 2026-09-14 | typo
+[rebook the aperatus test|TITLE] [wensday|DATE:2026-09-16]
+
+typo-012 | 2026-09-14 | typo,soft-priority
+[fix the leeking tap|TITLE], [criticl|PRIORITY_P1]
+
+typo-013 | 2026-09-16 | typo
+[reorder the stationary|TITLE] [fridy|DATE:2026-09-18]
+
+typo-014 | 2026-09-14 | typo,recurrence
+[chek the oil levl|TITLE] [evry month|RECURRENCE:Every month]
+> due_date:2026-09-14
+
+typo-015 | 2026-09-14 | typo,time
+[phone the vet|TITLE] [this aftrnoon|TIME:14:00]
+> due_date:2026-09-14
+
+// ===========================================================================
+// Explicit syntax controls (the parser should ace these)
+// ===========================================================================
+
+ctrl-010 | 2026-09-14 | explicit-syntax,control
+[file the VAT return|TITLE] [friday|DATE:2026-09-18] [!p1|PRIORITY_P1] [@finance|TAG]
+
+ctrl-011 | 2026-09-14 | explicit-syntax,control
+[stocktake|TITLE] [tomorrow|DATE:2026-09-15] [9am|TIME:09:00] [~3h|DURATION:180] [#Workshop|PROJECT]
+
+ctrl-012 | 2026-09-14 | explicit-syntax,control
+[order the skip|TITLE] [wednesday|DATE:2026-09-16] [!p2|PRIORITY_P2] [#Home Renovation|PROJECT]
+
+// ===========================================================================
+// Batch 3 - more hard negatives, realistic multi-slot, and mixed phrasing
+// ===========================================================================
+
+trap-040 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[buy a mayfly pattern for fishing|TITLE]
+
+trap-041 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[fix the march hare ornament|TITLE]
+
+trap-042 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[replace the satellite dish bracket|TITLE]
+
+trap-043 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[the workshop bench needs bracing|TITLE]
+
+trap-044 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[email the admin team about parking|TITLE]
+
+trap-045 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[check the health cover renewal date|TITLE]
+
+trap-046 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[sort the finance folder on the shared drive|TITLE]
+
+trap-047 | 2026-09-14 | hard-negative,no-metadata
+[print 12 copies of the agenda|TITLE]
+
+trap-048 | 2026-09-14 | hard-negative,no-metadata
+[buy 6 mugs for the kitchen|TITLE]
+
+trap-049 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[fill in the personal details form|TITLE]
+
+trap-050 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[proofread the monday club newsletter|TITLE]
+
+trap-051 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[sign the leaving card for april|TITLE]
+
+trap-052 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[augment the window display|TITLE]
+
+trap-053 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[summarise the june minutes|TITLE]
+
+trap-054 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[decorate for the may day fair|TITLE]
+
+trap-055 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[renew the sunbed membership|TITLE]
+
+trap-056 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[pin up the wednesday league fixtures|TITLE]
+
+trap-057 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[the errands app needs updating|TITLE]
+
+trap-058 | 2026-09-14 | hard-negative,no-metadata
+[cut the rope into 4 lengths|TITLE]
+
+trap-059 | 2026-09-14 | hard-negative,ambiguous-duration,no-metadata
+[book a room for 2|TITLE]
+
+trap-060 | 2026-09-14 | hard-negative,ambiguous-date,no-metadata
+[water the sunflowers|TITLE]
+
+trap-061 | 2026-09-14 | hard-negative,ambiguous-project,no-metadata
+[laminate the workshop safety poster|TITLE]
+
+// ===========================================================================
+// Plain tasks, no metadata
+// ===========================================================================
+
+plain-010 | 2026-09-14 | no-metadata
+[swap the bathroom bulb|TITLE]
+
+plain-011 | 2026-09-14 | no-metadata
+[reseal the bath|TITLE]
+
+plain-012 | 2026-09-14 | no-metadata
+[hem the curtains|TITLE]
+
+plain-013 | 2026-09-14 | no-metadata
+[sharpen the kitchen knives|TITLE]
+
+plain-014 | 2026-09-14 | no-metadata
+[replace the letterbox brushes|TITLE]
+
+plain-015 | 2026-09-14 | no-metadata
+[wind the grandfather clock|TITLE]
+
+plain-016 | 2026-09-14 | no-metadata
+[restring the guitar|TITLE]
+
+plain-017 | 2026-09-14 | no-metadata
+[oil the door hinges|TITLE]
+
+plain-018 | 2026-09-14 | no-metadata
+[back up the phone photos|TITLE]
+
+plain-019 | 2026-09-14 | no-metadata
+[top up the salt in the softener|TITLE]
+
+plain-020 | 2026-09-14 | no-metadata,conversational
+i really must [clean the oven racks|TITLE]
+
+plain-021 | 2026-09-16 | no-metadata,conversational
+at some point, [sort the sock drawer|TITLE]
+
+// ===========================================================================
+// Realistic multi-slot
+// ===========================================================================
+
+mix-010 | 2026-09-14 | conversational,filler-prefix,soft-priority
+be sure to [chase the electrician|TITLE] [tomorrow|DATE:2026-09-15], [needs attention now|PRIORITY_P1]
+
+mix-011 | 2026-09-14 | conversational,duration,time
+[re-felt the shed roof|TITLE] [saturday|DATE:2026-09-19] [morning|TIME:09:00], [a couple of hours|DURATION:120]
+
+mix-012 | 2026-09-16 | conversational,filler-prefix,project
+put it on the list to [book the dog groomer|TITLE] [for Personal|PROJECT] [thursday|DATE:2026-09-17]
+
+mix-013 | 2026-09-14 | project,tag,soft-priority
+[photocopy the deeds|TITLE] [#Home Renovation|PROJECT] [@admin|TAG], [matters a lot|PRIORITY_P2]
+
+mix-014 | 2026-09-14 | conversational,time,soft-priority
+[register for the webinar|TITLE] [before 5|TIME:17:00], [would be nice|PRIORITY_P4]
+
+mix-015 | 2026-09-18 | conversational,filler-prefix,recurrence
+remember, [polish the brass handles|TITLE] [every month|RECURRENCE:Every month]
+> due_date:2026-09-18
+
+mix-016 | 2026-09-14 | conversational,filler-clause,date
+[reset the alarm code|TITLE] [tuesday|DATE:2026-09-15] if the engineer turns up
+
+mix-017 | 2026-09-14 | notes,date
+[update the emergency contacts|TITLE] [friday|DATE:2026-09-18] // [ask payroll for the new numbers|NOTE]
+
+mix-018 | 2026-09-14 | conversational,soft-priority,duration
+[renew the breakdown cover|TITLE], [ten minutes tops|DURATION:10], [can wait forever|PRIORITY_P4]
+
+mix-019 | 2026-09-16 | conversational,filler-prefix,time
+i ought to [arrange the skip hire|TITLE] [first thing|TIME:09:00]
+> due_date:2026-09-16
+
+mix-020 | 2026-09-14 | conversational,checklist
+[mend the gate latch|TITLE] [+buy a new catch|STEP] [+drill the post|STEP]
+
+mix-021 | 2026-09-14 | project,date,duration
+[wash the car seat covers|TITLE] [#Personal|PROJECT] [sunday|DATE:2026-09-20] [~45m|DURATION:45]
+
+mix-022 | 2026-09-14 | conversational,filler-prefix,soft-priority,date
+whatever else happens, [post the eBay parcels|TITLE] [today|DATE:2026-09-14], [this cannot wait|PRIORITY_P1]
+
+mix-023 | 2026-09-18 | conversational,time,date
+[book a table for the anniversary|TITLE] [monday|DATE:2026-09-21] [at seven|TIME:19:00]
+!review
+# Bare "seven" with no marker; evening assumed.
+
+mix-024 | 2026-09-14 | conversational,filler-clause
+[collect the framed print|TITLE] [wednesday|DATE:2026-09-16] if the shop has called
+
+mix-025 | 2026-09-14 | date,tag
+[return the hire tools|TITLE] [@errands|TAG] [tomorrow|DATE:2026-09-15]
+
+mix-026 | 2026-09-14 | conversational,filler-prefix,notes
+on the list: [cancel the magazine subscription|TITLE] // [renewal hits on the 1st|NOTE]
+
+mix-027 | 2026-09-16 | conversational,soft-priority,time
+[clear the loft hatch|TITLE] [this evening|TIME:18:00], [only if time allows|PRIORITY_P4]
+> due_date:2026-09-16
+
+// ===========================================================================
+// More conversational variety
+// ===========================================================================
+
+conv-050 | 2026-09-14 | conversational,filler-prefix
+stick [descaling the shower head|TITLE] on the list
+
+conv-051 | 2026-09-14 | conversational,filler-prefix
+someone ought to [label the fuse box|TITLE]
+
+conv-052 | 2026-09-16 | conversational,filler-prefix
+can we please [replace the doormat|TITLE] [before the weekend|DATE:2026-09-19]
+!review
+
+conv-053 | 2026-09-14 | conversational,filler-clause
+[book the carpet cleaner|TITLE] assuming the quote is sensible
+
+conv-054 | 2026-09-14 | conversational,filler-prefix
+note for later: [order more printer toner|TITLE]
+
+conv-055 | 2026-09-14 | conversational,filler-prefix,date
+while i remember, [move the standing order|TITLE] [thursday|DATE:2026-09-17]
+
+conv-056 | 2026-09-18 | conversational,filler-clause
+[tidy the tool wall|TITLE] once the new brackets arrive
+
+conv-057 | 2026-09-14 | conversational,filler-prefix
+that reminds me, [renew the club membership|TITLE]
+
+conv-058 | 2026-09-14 | conversational,passive-voice
+[the hedge wants cutting|TITLE] [before october|DATE:2026-09-30]
+> title:cut the hedge
+!review
+# Passive; a tagger cannot reword.
+
+conv-059 | 2026-09-14 | conversational,filler-prefix,soft-priority
+honestly [this one is overdue|PRIORITY_P2] - [refit the bathroom seal|TITLE]
+!review
+
+// ===========================================================================
+// More time and date variety
+// ===========================================================================
+
+time-040 | 2026-09-14 | fuzzy-time,time
+[phone the bank|TITLE] [at twenty past nine|TIME:09:20]
+
+time-041 | 2026-09-14 | fuzzy-time,time
+[start the slow cooker|TITLE] [around seven in the morning|TIME:07:00]
+
+time-042 | 2026-09-16 | vague-time
+[lock up the yard|TITLE] [at knocking off time|TIME:17:00]
+!review
+
+time-043 | 2026-09-14 | fuzzy-time,time
+[join the standup call|TITLE] [at 9:15|TIME:09:15]
+> due_date:2026-09-14
+
+time-044 | 2026-09-14 | fuzzy-time,time
+[collect the kids|TITLE] [quarter to four|TIME:15:45]
+
+date-050 | 2026-09-14 | relative-date
+[send the deposit receipt|TITLE] [in a week|DATE:2026-09-21]
+
+date-051 | 2026-09-14 | relative-date
+[cancel the hire|TITLE] [the day before friday|DATE:2026-09-17]
+!review
+# Unusual phrasing; confirm the parser is expected to handle it at all.
+
+date-052 | 2026-09-16 | day-of-month
+[pay the ground rent|TITLE] [by the 1st|DATE:2026-10-01]
+!review
+# Next occurrence of the 1st is in October.
+
+date-053 | 2026-09-14 | relative-date
+[submit the timesheet|TITLE] [end of the week|DATE:2026-09-18]
+!review
+
+date-054 | 2026-09-18 | relative-date
+[take the recycling out|TITLE] [tonight|DATE:2026-09-18]
