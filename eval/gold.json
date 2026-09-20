@@ -1,0 +1,7187 @@
+{
+  "_comment": "Hand-written gold set for Ordo language understanding. See eval/README.md for conventions. Never generate cases into this file - synthetic data belongs elsewhere.",
+  "projects": [
+    "Hacking Challenge",
+    "Workshop",
+    "Personal",
+    "SMEC Technologies",
+    "Home Renovation"
+  ],
+  "tags": [
+    "finance",
+    "admin",
+    "health",
+    "errands"
+  ],
+  "cases": [
+    {
+      "id": "explicit-001",
+      "text": "Send invoice to Acme tomorrow 5pm !p1 #Work @finance ~45m every friday",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "Send invoice to Acme"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "5pm"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p1"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Work"
+        },
+        {
+          "label": "TAG",
+          "text": "@finance"
+        },
+        {
+          "label": "DURATION",
+          "text": "~45m"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every friday"
+        }
+      ],
+      "expect": {
+        "title": "Send invoice to Acme",
+        "due_date": "2026-09-15",
+        "due_time": "17:00",
+        "priority": "p1",
+        "project": "Work",
+        "tags": [
+          "finance"
+        ],
+        "estimate_minutes": 45,
+        "recurrence": "Every Friday"
+      }
+    },
+    {
+      "id": "explicit-002",
+      "text": "review deck friday 2pm !p2",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "review deck"
+        },
+        {
+          "label": "DATE",
+          "text": "friday"
+        },
+        {
+          "label": "TIME",
+          "text": "2pm"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p2"
+        }
+      ],
+      "expect": {
+        "title": "review deck",
+        "due_date": "2026-09-18",
+        "due_time": "14:00",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "explicit-003",
+      "text": "file taxes 2026-10-01 !p1",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "file taxes"
+        },
+        {
+          "label": "DATE",
+          "text": "2026-10-01"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p1"
+        }
+      ],
+      "expect": {
+        "title": "file taxes",
+        "due_date": "2026-10-01",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "explicit-004",
+      "text": "prep the talk +outline +slides +rehearse // ask about the projector",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "checklist",
+        "notes"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "prep the talk"
+        },
+        {
+          "label": "STEP",
+          "text": "+outline"
+        },
+        {
+          "label": "STEP",
+          "text": "+slides"
+        },
+        {
+          "label": "STEP",
+          "text": "+rehearse"
+        },
+        {
+          "label": "NOTE",
+          "text": "ask about the projector"
+        }
+      ],
+      "expect": {
+        "title": "prep the talk",
+        "subtasks": [
+          "outline",
+          "slides",
+          "rehearse"
+        ],
+        "notes": "ask about the projector"
+      }
+    },
+    {
+      "id": "explicit-005",
+      "text": "reply to sir tomorrow 3pm !p2 #Hacking Challenge",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "project",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reply to sir"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "3pm"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p2"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Hacking Challenge"
+        }
+      ],
+      "expect": {
+        "title": "reply to sir",
+        "due_date": "2026-09-15",
+        "due_time": "15:00",
+        "priority": "p2",
+        "project": "Hacking Challenge"
+      }
+    },
+    {
+      "id": "negative-001",
+      "text": "buy milk",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "very-short",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "buy milk"
+        }
+      ],
+      "expect": {
+        "title": "buy milk"
+      }
+    },
+    {
+      "id": "negative-002",
+      "text": "Buy sun cream",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "note": "'sun' must not be read as Sunday.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "Buy sun cream"
+        }
+      ],
+      "expect": {
+        "title": "Buy sun cream"
+      }
+    },
+    {
+      "id": "negative-003",
+      "text": "personal email",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "note": "'personal' matches a known project but is used as an adjective here.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "personal email"
+        }
+      ],
+      "expect": {
+        "title": "personal email"
+      }
+    },
+    {
+      "id": "negative-004",
+      "text": "march the band down the street",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "note": "'march' is a month word used as a verb.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "march the band down the street"
+        }
+      ],
+      "expect": {
+        "title": "march the band down the street"
+      }
+    },
+    {
+      "id": "negative-005",
+      "text": "call mum about the may wedding",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date"
+      ],
+      "note": "'may' is a month word used as a modifier.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call mum about the may wedding"
+        }
+      ],
+      "expect": {
+        "title": "call mum about the may wedding"
+      }
+    },
+    {
+      "id": "negative-006",
+      "text": "gym",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "gym"
+        }
+      ],
+      "expect": {
+        "title": "gym"
+      }
+    },
+    {
+      "id": "negative-007",
+      "text": "book a table for four",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-duration",
+        "no-metadata"
+      ],
+      "note": "'for four' must not be read as a duration.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book a table for four"
+        }
+      ],
+      "expect": {
+        "title": "book a table for four"
+      }
+    },
+    {
+      "id": "negative-008",
+      "text": "read the new rust book chapter when i get time",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "conversational",
+        "filler-clause"
+      ],
+      "note": "'when i get time' is filler, not a date. Ideal title drops it.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "read the new rust book chapter"
+        }
+      ],
+      "expect": {
+        "title": "read the new rust book chapter"
+      }
+    },
+    {
+      "id": "typo-001",
+      "text": "reply to sir tommorow arnd 3 in the evening, high prio",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "conversational",
+        "soft-priority",
+        "fuzzy-time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reply to sir"
+        },
+        {
+          "label": "DATE",
+          "text": "tommorow"
+        },
+        {
+          "label": "TIME",
+          "text": "arnd 3 in the evening"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "high prio"
+        }
+      ],
+      "expect": {
+        "title": "reply to sir",
+        "due_date": "2026-09-15",
+        "due_time": "15:00",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "typo-002",
+      "text": "pay the electricty bill evry month, takes 5 min",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "recurrence",
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pay the electricty bill"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "evry month"
+        },
+        {
+          "label": "DURATION",
+          "text": "takes 5 min"
+        }
+      ],
+      "expect": {
+        "title": "pay the electricity bill",
+        "recurrence": "Every month",
+        "estimate_minutes": 5,
+        "due_date": "2026-09-14"
+      },
+      "review": true,
+      "note": "Does the ideal title keep the user's typo 'electricty' or correct it? Decide and align expect.title. Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "typo-003",
+      "text": "book dentist nxt wensday",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book dentist"
+        },
+        {
+          "label": "DATE",
+          "text": "nxt wensday"
+        }
+      ],
+      "expect": {
+        "title": "book dentist",
+        "due_date": "2026-09-23"
+      },
+      "review": true,
+      "note": "'next wednesday' from a Monday: Sep 16 (this week) or Sep 23 (next week)? Assumed Sep 23."
+    },
+    {
+      "id": "typo-004",
+      "text": "standup evry weekday at 9 30",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "recurrence",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "standup"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "evry weekday"
+        },
+        {
+          "label": "TIME",
+          "text": "at 9 30"
+        }
+      ],
+      "expect": {
+        "title": "standup",
+        "recurrence": "Every weekday",
+        "due_time": "09:30",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "typo-005",
+      "text": "2moro: renew the domain",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "abbreviation",
+        "leading-date"
+      ],
+      "spans": [
+        {
+          "label": "DATE",
+          "text": "2moro"
+        },
+        {
+          "label": "TITLE",
+          "text": "renew the domain"
+        }
+      ],
+      "expect": {
+        "title": "renew the domain",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "abbrev-001",
+      "text": "call Arun tmrw",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "very-short"
+      ],
+      "note": "'tmrw' is 4 chars; fuzzy_correct never corrects words under 5.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call Arun"
+        },
+        {
+          "label": "DATE",
+          "text": "tmrw"
+        }
+      ],
+      "expect": {
+        "title": "call Arun",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "abbrev-002",
+      "text": "gotta send the invoice to acme tmrw around 5, urgent",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang",
+        "soft-priority",
+        "fuzzy-time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the invoice to acme"
+        },
+        {
+          "label": "DATE",
+          "text": "tmrw"
+        },
+        {
+          "label": "TIME",
+          "text": "around 5"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "urgent"
+        }
+      ],
+      "expect": {
+        "title": "send the invoice to acme",
+        "due_date": "2026-09-15",
+        "due_time": "17:00",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "abbrev-003",
+      "text": "sort out the docs asap",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort out the docs"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "asap"
+        }
+      ],
+      "expect": {
+        "title": "sort out the docs",
+        "priority": "p1"
+      },
+      "review": true,
+      "note": "Does 'asap' also imply due today? Assumed priority only."
+    },
+    {
+      "id": "abbrev-004",
+      "text": "ping sarah re: the deck eod",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ping sarah re: the deck"
+        },
+        {
+          "label": "DATE",
+          "text": "eod"
+        }
+      ],
+      "expect": {
+        "title": "ping sarah re: the deck",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "abbrev-005",
+      "text": "submit the form by eom",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "submit the form"
+        },
+        {
+          "label": "DATE",
+          "text": "eom"
+        }
+      ],
+      "expect": {
+        "title": "submit the form",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "conv-001",
+      "text": "don't forget to call Arun tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call Arun"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "call Arun",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "conv-002",
+      "text": "make sure I call Arun tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call Arun"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "call Arun",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "conv-003",
+      "text": "remind me to renew the car insurance on the 20th, not important",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority",
+        "day-of-month"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the car insurance"
+        },
+        {
+          "label": "DATE",
+          "text": "on the 20th"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "not important"
+        }
+      ],
+      "expect": {
+        "title": "renew the car insurance",
+        "due_date": "2026-09-20",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "conv-004",
+      "text": "need to get that report over to John sometime tomorrow afternoon, make it fairly important",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority",
+        "vague-time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "get that report over to John"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "afternoon"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "fairly important"
+        }
+      ],
+      "expect": {
+        "title": "get that report over to John",
+        "due_date": "2026-09-15",
+        "due_time": "14:00",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "conv-005",
+      "text": "hey can you remind me to water the plants every 3 days",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "water the plants"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every 3 days"
+        }
+      ],
+      "expect": {
+        "title": "water the plants",
+        "recurrence": "Every 3 days",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "conv-006",
+      "text": "hey don't let me forget to send the invoice to acme sometime tomorrow around 3ish, it's pretty important",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority",
+        "fuzzy-time",
+        "very-long"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the invoice to acme"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "around 3ish"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "pretty important"
+        }
+      ],
+      "expect": {
+        "title": "send the invoice to acme",
+        "due_date": "2026-09-15",
+        "due_time": "15:00",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "conv-007",
+      "text": "make sure the Acme invoice is dealt with sometime after lunch tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "vague-time",
+        "passive-voice"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the Acme invoice is dealt with"
+        },
+        {
+          "label": "TIME",
+          "text": "after lunch"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "deal with the Acme invoice",
+        "due_date": "2026-09-15",
+        "due_time": "13:00"
+      },
+      "review": true,
+      "note": "Two decisions: what 'after lunch' resolves to, and whether the ideal title may be reworded from passive voice (a tagger cannot do this - it can only select a span)."
+    },
+    {
+      "id": "prio-001",
+      "text": "fix the printer, pretty important",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "fix the printer"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "pretty important"
+        }
+      ],
+      "expect": {
+        "title": "fix the printer",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "prio-002",
+      "text": "grab stamps, not a big deal",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "grab stamps"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "not a big deal"
+        }
+      ],
+      "expect": {
+        "title": "grab stamps",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-003",
+      "text": "deploy the hotfix, this is critical",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "deploy the hotfix"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "this is critical"
+        }
+      ],
+      "expect": {
+        "title": "deploy the hotfix",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-004",
+      "text": "review the PR when you can, low prio",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "review the PR"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "low prio"
+        }
+      ],
+      "expect": {
+        "title": "review the PR",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-005",
+      "text": "need the printer fixed today!!",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority",
+        "punctuation-emphasis"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "need the printer fixed"
+        },
+        {
+          "label": "DATE",
+          "text": "today"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!!"
+        }
+      ],
+      "expect": {
+        "title": "fix the printer",
+        "due_date": "2026-09-14",
+        "priority": "p1"
+      },
+      "review": true,
+      "note": "Does '!!' alone raise priority, and may the title be reworded? Both are product decisions."
+    },
+    {
+      "id": "dur-001",
+      "text": "write the summary ~45m",
+      "today": "2026-09-14",
+      "categories": [
+        "duration",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "write the summary"
+        },
+        {
+          "label": "DURATION",
+          "text": "~45m"
+        }
+      ],
+      "expect": {
+        "title": "write the summary",
+        "estimate_minutes": 45
+      }
+    },
+    {
+      "id": "dur-002",
+      "text": "clean the garage, will take about 2 hours",
+      "today": "2026-09-14",
+      "categories": [
+        "duration",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "clean the garage"
+        },
+        {
+          "label": "DURATION",
+          "text": "about 2 hours"
+        }
+      ],
+      "expect": {
+        "title": "clean the garage",
+        "estimate_minutes": 120
+      }
+    },
+    {
+      "id": "dur-003",
+      "text": "quick call with dev team for 15 mins",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "quick call with dev team"
+        },
+        {
+          "label": "DURATION",
+          "text": "for 15 mins"
+        }
+      ],
+      "expect": {
+        "title": "quick call with dev team",
+        "estimate_minutes": 15
+      }
+    },
+    {
+      "id": "dur-004",
+      "text": "finish the slides by wed, will take 2 hrs, steps: outline then design",
+      "today": "2026-09-14",
+      "categories": [
+        "duration",
+        "checklist",
+        "conversational",
+        "very-long"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "finish the slides"
+        },
+        {
+          "label": "DATE",
+          "text": "by wed"
+        },
+        {
+          "label": "DURATION",
+          "text": "2 hrs"
+        },
+        {
+          "label": "STEP",
+          "text": "outline"
+        },
+        {
+          "label": "STEP",
+          "text": "design"
+        }
+      ],
+      "expect": {
+        "title": "finish the slides",
+        "due_date": "2026-09-16",
+        "estimate_minutes": 120,
+        "subtasks": [
+          "outline",
+          "design"
+        ]
+      }
+    },
+    {
+      "id": "recur-001",
+      "text": "water the plants every 3 days",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "water the plants"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every 3 days"
+        }
+      ],
+      "expect": {
+        "title": "water the plants",
+        "recurrence": "Every 3 days",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "recur-002",
+      "text": "team sync every other monday",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "uncommon-phrasing"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "team sync"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every other monday"
+        }
+      ],
+      "expect": {
+        "title": "team sync",
+        "recurrence": "Every 2 weeks on Monday",
+        "due_date": "2026-09-14"
+      },
+      "review": true,
+      "note": "Confirm Recurrence::label() output for interval 2 + weekday Monday; align this string to it. Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "recur-003",
+      "text": "pay rent monthly",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "very-short"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pay rent"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "monthly"
+        }
+      ],
+      "expect": {
+        "title": "pay rent",
+        "recurrence": "Every month",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "recur-004",
+      "text": "backup the db every weekday at 6am",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "backup the db"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every weekday"
+        },
+        {
+          "label": "TIME",
+          "text": "at 6am"
+        }
+      ],
+      "expect": {
+        "title": "backup the db",
+        "recurrence": "Every weekday",
+        "due_time": "06:00",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "recur-005",
+      "text": "remind me to check the server every monday",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "check the server"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every monday"
+        }
+      ],
+      "expect": {
+        "title": "check the server",
+        "recurrence": "Every Monday",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "proj-001",
+      "text": "fix the login bug for SMEC Technologies",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "bare-project-name"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "fix the login bug"
+        },
+        {
+          "label": "PROJECT",
+          "text": "for SMEC Technologies"
+        }
+      ],
+      "expect": {
+        "title": "fix the login bug",
+        "project": "SMEC Technologies"
+      }
+    },
+    {
+      "id": "proj-002",
+      "text": "draft the roadmap hacking challenge project",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "bare-project-name"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "draft the roadmap"
+        },
+        {
+          "label": "PROJECT",
+          "text": "hacking challenge project"
+        }
+      ],
+      "expect": {
+        "title": "draft the roadmap",
+        "project": "Hacking Challenge"
+      }
+    },
+    {
+      "id": "proj-003",
+      "text": "send the invoice @finance tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "tag"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the invoice"
+        },
+        {
+          "label": "TAG",
+          "text": "@finance"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "send the invoice",
+        "tags": [
+          "finance"
+        ],
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "proj-004",
+      "text": "order the tiles @errands #Home Renovation ~20m",
+      "today": "2026-09-14",
+      "categories": [
+        "tag",
+        "project",
+        "duration",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order the tiles"
+        },
+        {
+          "label": "TAG",
+          "text": "@errands"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Home Renovation"
+        },
+        {
+          "label": "DURATION",
+          "text": "~20m"
+        }
+      ],
+      "expect": {
+        "title": "order the tiles",
+        "tags": [
+          "errands"
+        ],
+        "project": "Home Renovation",
+        "estimate_minutes": 20
+      }
+    },
+    {
+      "id": "date-001",
+      "text": "book the venue for the weekend",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the venue"
+        },
+        {
+          "label": "DATE",
+          "text": "the weekend"
+        }
+      ],
+      "expect": {
+        "title": "book the venue",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "date-002",
+      "text": "sort the report out by the end of the month",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort the report out"
+        },
+        {
+          "label": "DATE",
+          "text": "the end of the month"
+        }
+      ],
+      "expect": {
+        "title": "sort the report out",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "date-003",
+      "text": "call the bank in 3 days",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call the bank"
+        },
+        {
+          "label": "DATE",
+          "text": "in 3 days"
+        }
+      ],
+      "expect": {
+        "title": "call the bank",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "date-004",
+      "text": "lunch with priya next week",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "lunch with priya"
+        },
+        {
+          "label": "DATE",
+          "text": "next week"
+        }
+      ],
+      "expect": {
+        "title": "lunch with priya",
+        "due_date": "2026-09-21"
+      },
+      "review": true,
+      "note": "'next week' from a Monday: Monday Sep 21 assumed. Confirm against parse_date."
+    },
+    {
+      "id": "date-005",
+      "text": "dinner tonight at 8",
+      "today": "2026-09-14",
+      "categories": [
+        "time",
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "dinner"
+        },
+        {
+          "label": "DATE",
+          "text": "tonight"
+        },
+        {
+          "label": "TIME",
+          "text": "at 8"
+        }
+      ],
+      "expect": {
+        "title": "dinner",
+        "due_date": "2026-09-14",
+        "due_time": "20:00"
+      }
+    },
+    {
+      "id": "date-006",
+      "text": "standup at 9:30",
+      "today": "2026-09-14",
+      "categories": [
+        "time",
+        "no-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "standup"
+        },
+        {
+          "label": "TIME",
+          "text": "at 9:30"
+        }
+      ],
+      "expect": {
+        "title": "standup",
+        "due_time": "09:30",
+        "due_date": "2026-09-14"
+      },
+      "note": "Recurrence/bare time implies a first-occurrence date of today - parser design."
+    },
+    {
+      "id": "date-007",
+      "text": "meeting around 3ish tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "very-short"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "meeting"
+        },
+        {
+          "label": "TIME",
+          "text": "around 3ish"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "meeting",
+        "due_date": "2026-09-15",
+        "due_time": "15:00"
+      }
+    },
+    {
+      "id": "date-008",
+      "text": "groceries tomorrow afternoon for personal stuff, remember eggs",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time",
+        "ambiguous-project",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "groceries"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "afternoon"
+        },
+        {
+          "label": "NOTE",
+          "text": "remember eggs"
+        }
+      ],
+      "expect": {
+        "title": "groceries",
+        "due_date": "2026-09-15",
+        "due_time": "14:00",
+        "notes": "remember eggs"
+      },
+      "review": true,
+      "note": "Should 'for personal stuff' assign the Personal project? Assumed no."
+    },
+    {
+      "id": "date-009",
+      "text": "send the report to maya by fri morning",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time",
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the report to maya"
+        },
+        {
+          "label": "DATE",
+          "text": "by fri"
+        },
+        {
+          "label": "TIME",
+          "text": "morning"
+        }
+      ],
+      "expect": {
+        "title": "send the report to maya",
+        "due_date": "2026-09-18",
+        "due_time": "09:00"
+      }
+    },
+    {
+      "id": "date-010",
+      "text": "^tomorrow draft the newsletter",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "scheduled"
+      ],
+      "spans": [
+        {
+          "label": "SCHEDULED",
+          "text": "^tomorrow"
+        },
+        {
+          "label": "TITLE",
+          "text": "draft the newsletter"
+        }
+      ],
+      "expect": {
+        "title": "draft the newsletter",
+        "scheduled": "2026-09-15"
+      }
+    },
+    {
+      "id": "semantic-001",
+      "text": "the thing I need to send Sarah after the client gets back",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "unresolvable-date"
+      ],
+      "note": "Date is genuinely unresolvable. Correct behaviour is to extract the task and leave the date unset, not invent one.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send Sarah"
+        }
+      ],
+      "expect": {
+        "title": "send Sarah the thing"
+      },
+      "review": true
+    },
+    {
+      "id": "semantic-002",
+      "text": "deal with that invoice once finance approves it",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "unresolvable-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "deal with that invoice"
+        }
+      ],
+      "expect": {
+        "title": "deal with that invoice"
+      }
+    },
+    {
+      "id": "semantic-003",
+      "text": "follow up on what we discussed in standup",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "follow up on what we discussed in standup"
+        }
+      ],
+      "expect": {
+        "title": "follow up on what we discussed in standup"
+      }
+    },
+    {
+      "id": "semantic-004",
+      "text": "chase the council about the permit before the builders start next month",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "ambiguous-date",
+        "very-long"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chase the council about the permit"
+        },
+        {
+          "label": "DATE",
+          "text": "next month"
+        }
+      ],
+      "expect": {
+        "title": "chase the council about the permit",
+        "due_date": "2026-10-01"
+      },
+      "review": true,
+      "note": "'before ... next month' is a deadline relative to an external event. Assumed start of next month."
+    },
+    {
+      "id": "mixed-001",
+      "text": "call mom this evening",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time",
+        "very-short"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call mom"
+        },
+        {
+          "label": "TIME",
+          "text": "this evening"
+        }
+      ],
+      "expect": {
+        "title": "call mom",
+        "due_date": "2026-09-14",
+        "due_time": "18:00"
+      }
+    },
+    {
+      "id": "mixed-002",
+      "text": "team lunch with the workshop guys next thu at 1",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "abbreviation",
+        "bare-project-name"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "team lunch"
+        },
+        {
+          "label": "PROJECT",
+          "text": "workshop"
+        },
+        {
+          "label": "DATE",
+          "text": "next thu"
+        },
+        {
+          "label": "TIME",
+          "text": "at 1"
+        }
+      ],
+      "expect": {
+        "title": "team lunch with the guys",
+        "project": "Workshop",
+        "due_date": "2026-09-24",
+        "due_time": "13:00"
+      },
+      "review": true,
+      "note": "Single-word project 'workshop' without '#' - current parser requires the word 'project' after it. Also confirm 'next thu' from Monday."
+    },
+    {
+      "id": "mixed-003",
+      "text": "ship v2 // blocked on design review",
+      "today": "2026-09-14",
+      "categories": [
+        "notes",
+        "very-short",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ship v2"
+        },
+        {
+          "label": "NOTE",
+          "text": "blocked on design review"
+        }
+      ],
+      "expect": {
+        "title": "ship v2",
+        "notes": "blocked on design review"
+      }
+    },
+    {
+      "id": "mixed-004",
+      "text": "Read https://example.com/docs tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "url",
+        "hard-negative"
+      ],
+      "note": "The '//' in the URL must not start notes.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "Read https://example.com/docs"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "Read https://example.com/docs",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "mixed-005",
+      "text": "book flights and hotel for the conference in berlin next month, budget is tight so check a few sites first, probably takes an hour",
+      "today": "2026-09-14",
+      "categories": [
+        "very-long",
+        "conversational",
+        "duration",
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book flights and hotel for the conference in berlin"
+        },
+        {
+          "label": "DATE",
+          "text": "next month"
+        },
+        {
+          "label": "DURATION",
+          "text": "takes an hour"
+        }
+      ],
+      "expect": {
+        "title": "book flights and hotel for the conference in berlin",
+        "due_date": "2026-10-01",
+        "estimate_minutes": 60
+      },
+      "review": true,
+      "note": "Should 'budget is tight so check a few sites first' become notes? Assumed dropped."
+    },
+    {
+      "id": "conv-020",
+      "text": "be sure to ring the dentist first thing on tuesday",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ring the dentist"
+        },
+        {
+          "label": "TIME",
+          "text": "first thing"
+        },
+        {
+          "label": "DATE",
+          "text": "on tuesday"
+        }
+      ],
+      "expect": {
+        "title": "ring the dentist",
+        "due_time": "09:00",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "conv-021",
+      "text": "put it on the list to collect the dry cleaning wednesday",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the dry cleaning"
+        },
+        {
+          "label": "DATE",
+          "text": "wednesday"
+        }
+      ],
+      "expect": {
+        "title": "collect the dry cleaning",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "conv-022",
+      "text": "i ought to sharpen the mower blades before the weekend",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "note": "\"before the weekend\" assumed to mean Saturday.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sharpen the mower blades"
+        },
+        {
+          "label": "DATE",
+          "text": "before the weekend"
+        }
+      ],
+      "expect": {
+        "title": "sharpen the mower blades",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "conv-023",
+      "text": "on my list: register the puppy with the vet thursday",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "register the puppy with the vet"
+        },
+        {
+          "label": "DATE",
+          "text": "thursday"
+        }
+      ],
+      "expect": {
+        "title": "register the puppy with the vet",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "conv-024",
+      "text": "we should really audit the storeroom stock this week",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "note": "\"this week\" assumed to mean end of the working week.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "audit the storeroom stock"
+        },
+        {
+          "label": "DATE",
+          "text": "this week"
+        }
+      ],
+      "expect": {
+        "title": "audit the storeroom stock",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "conv-025",
+      "text": "patch the plasterboard if i get five minutes",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "patch the plasterboard"
+        }
+      ],
+      "expect": {
+        "title": "patch the plasterboard"
+      }
+    },
+    {
+      "id": "conv-026",
+      "text": "mustn't forget to photograph the meter reading today",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "photograph the meter reading"
+        },
+        {
+          "label": "DATE",
+          "text": "today"
+        }
+      ],
+      "expect": {
+        "title": "photograph the meter reading",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "conv-027",
+      "text": "first job: bleed the radiators",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "bleed the radiators"
+        }
+      ],
+      "expect": {
+        "title": "bleed the radiators"
+      }
+    },
+    {
+      "id": "conv-028",
+      "text": "action: countersign the lease addendum by the 25th",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "countersign the lease addendum"
+        },
+        {
+          "label": "DATE",
+          "text": "by the 25th"
+        }
+      ],
+      "expect": {
+        "title": "countersign the lease addendum",
+        "due_date": "2026-09-25"
+      }
+    },
+    {
+      "id": "conv-029",
+      "text": "quick one, descale the coffee machine whenever there's a gap",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "descale the coffee machine"
+        }
+      ],
+      "expect": {
+        "title": "descale the coffee machine"
+      }
+    },
+    {
+      "id": "conv-030",
+      "text": "worth shortlisting the applicants before friday",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "shortlisting the applicants"
+        },
+        {
+          "label": "DATE",
+          "text": "before friday"
+        }
+      ],
+      "expect": {
+        "title": "shortlisting the applicants",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "conv-031",
+      "text": "let's brief the new starter tomorrow mid-morning",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "note": "\"mid-morning\" assumed 10:00.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "brief the new starter"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "mid-morning"
+        }
+      ],
+      "expect": {
+        "title": "brief the new starter",
+        "due_date": "2026-09-15",
+        "due_time": "10:00"
+      }
+    },
+    {
+      "id": "conv-032",
+      "text": "next up: trim the hedge out front",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "trim the hedge out front"
+        }
+      ],
+      "expect": {
+        "title": "trim the hedge out front"
+      }
+    },
+    {
+      "id": "conv-033",
+      "text": "the storeroom needs restocking on thursday",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "passive-voice"
+      ],
+      "note": "Passive phrasing. A tagger can only select the span, never reword it.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the storeroom needs restocking"
+        },
+        {
+          "label": "DATE",
+          "text": "on thursday"
+        }
+      ],
+      "expect": {
+        "title": "restock the storeroom",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "conv-034",
+      "text": "small thing: swap the office chair casters",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "swap the office chair casters"
+        }
+      ],
+      "expect": {
+        "title": "swap the office chair casters"
+      }
+    },
+    {
+      "id": "conv-035",
+      "text": "index the archive boxes at some stage this month",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "index the archive boxes"
+        },
+        {
+          "label": "DATE",
+          "text": "this month"
+        }
+      ],
+      "expect": {
+        "title": "index the archive boxes",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "conv-036",
+      "text": "top of the list: wire the deposit to the agent today this can't slip",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "wire the deposit to the agent"
+        },
+        {
+          "label": "DATE",
+          "text": "today"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "this can't slip"
+        }
+      ],
+      "expect": {
+        "title": "wire the deposit to the agent",
+        "due_date": "2026-09-14",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "conv-037",
+      "text": "try to prune the apple tree saturday",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "prune the apple tree"
+        },
+        {
+          "label": "DATE",
+          "text": "saturday"
+        }
+      ],
+      "expect": {
+        "title": "prune the apple tree",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "conv-038",
+      "text": "add a reminder to renew the food hygiene cert end of the month",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the food hygiene cert"
+        },
+        {
+          "label": "DATE",
+          "text": "end of the month"
+        }
+      ],
+      "expect": {
+        "title": "renew the food hygiene cert",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "conv-039",
+      "text": "the generator ought to be tested before october",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "passive-voice"
+      ],
+      "note": "Passive; also \"before october\" assumed to mean the last day of September.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the generator ought to be tested"
+        },
+        {
+          "label": "DATE",
+          "text": "before october"
+        }
+      ],
+      "expect": {
+        "title": "test the generator",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "conv-040",
+      "text": "whatever happens, post the passport application tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "post the passport application"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "post the passport application",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "conv-041",
+      "text": "laminate the safety notices when the printer is free",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "laminate the safety notices"
+        }
+      ],
+      "expect": {
+        "title": "laminate the safety notices"
+      }
+    },
+    {
+      "id": "conv-042",
+      "text": "before anything else, restock the first aid kit",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "restock the first aid kit"
+        }
+      ],
+      "expect": {
+        "title": "restock the first aid kit"
+      }
+    },
+    {
+      "id": "conv-043",
+      "text": "i keep meaning to digitise the receipts",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "digitise the receipts"
+        }
+      ],
+      "expect": {
+        "title": "digitise the receipts"
+      }
+    },
+    {
+      "id": "conv-044",
+      "text": "would be good to varnish the bannister if the weather turns",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "varnish the bannister"
+        }
+      ],
+      "expect": {
+        "title": "varnish the bannister"
+      }
+    },
+    {
+      "id": "prio-020",
+      "text": "dispute the parking ticket, this can't slip",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "dispute the parking ticket"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "this can't slip"
+        }
+      ],
+      "expect": {
+        "title": "dispute the parking ticket",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-021",
+      "text": "shred the old statements — totally optional",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "shred the old statements"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "totally optional"
+        }
+      ],
+      "expect": {
+        "title": "shred the old statements",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-022",
+      "text": "calibrate the scales, mission critical",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "calibrate the scales"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "mission critical"
+        }
+      ],
+      "expect": {
+        "title": "calibrate the scales",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-023",
+      "text": "re-grout the kitchen splashback, would be nice",
+      "today": "2026-09-16",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "re-grout the kitchen splashback"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "would be nice"
+        }
+      ],
+      "expect": {
+        "title": "re-grout the kitchen splashback",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-024",
+      "text": "chase the warranty claim — matters a lot",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chase the warranty claim"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "matters a lot"
+        }
+      ],
+      "expect": {
+        "title": "chase the warranty claim",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "prio-025",
+      "text": "seal the driveway cracks, only if time allows",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "seal the driveway cracks"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "only if time allows"
+        }
+      ],
+      "expect": {
+        "title": "seal the driveway cracks",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-026",
+      "text": "notarise the affidavit, needs attention now",
+      "today": "2026-09-18",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "notarise the affidavit"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "needs attention now"
+        }
+      ],
+      "expect": {
+        "title": "notarise the affidavit",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-027",
+      "text": "rotate the tyres, reasonably pressing",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "rotate the tyres"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "reasonably pressing"
+        }
+      ],
+      "expect": {
+        "title": "rotate the tyres",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "prio-028",
+      "text": "unsubscribe from the junk lists — bottom of the pile",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "unsubscribe from the junk lists"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "bottom of the pile"
+        }
+      ],
+      "expect": {
+        "title": "unsubscribe from the junk lists",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-029",
+      "text": "make this the priority: back-fill the trench",
+      "today": "2026-09-16",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "PRIORITY",
+          "text": "make this the priority"
+        },
+        {
+          "label": "TITLE",
+          "text": "back-fill the trench"
+        }
+      ],
+      "expect": {
+        "priority": "p1",
+        "title": "back-fill the trench"
+      }
+    },
+    {
+      "id": "prio-030",
+      "text": "transcribe the interview tapes, not fussed when",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "transcribe the interview tapes"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "not fussed"
+        }
+      ],
+      "expect": {
+        "title": "transcribe the interview tapes",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-031",
+      "text": "cancel the gym direct debit — this is the big one",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "cancel the gym direct debit"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "this is the big one"
+        }
+      ],
+      "expect": {
+        "title": "cancel the gym direct debit",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-032",
+      "text": "measure the loft hatch, middling",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "measure the loft hatch"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "middling"
+        }
+      ],
+      "expect": {
+        "title": "measure the loft hatch",
+        "priority": "p3"
+      }
+    },
+    {
+      "id": "prio-033",
+      "text": "service the boiler — absolutely must happen",
+      "today": "2026-09-18",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "service the boiler"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "absolutely must happen"
+        }
+      ],
+      "expect": {
+        "title": "service the boiler",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-034",
+      "text": "label the freezer drawers, can wait forever",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "label the freezer drawers"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "can wait forever"
+        }
+      ],
+      "expect": {
+        "title": "label the freezer drawers",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-035",
+      "text": "reconcile the petty cash tin, highest on the list",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reconcile the petty cash tin"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "highest on the list"
+        }
+      ],
+      "expect": {
+        "title": "reconcile the petty cash tin",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "prio-036",
+      "text": "replace the shed padlock — big deal if it slips",
+      "today": "2026-09-16",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "replace the shed padlock"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "big deal if it slips"
+        }
+      ],
+      "expect": {
+        "title": "replace the shed padlock",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "prio-037",
+      "text": "really ought to be careful with this one, drain the hot tub",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority",
+        "conversational"
+      ],
+      "note": "Priority expressed as a whole clause. Confirm whether this should score as p2 at all.",
+      "review": true,
+      "spans": [
+        {
+          "label": "PRIORITY",
+          "text": "ought to be careful with this one"
+        },
+        {
+          "label": "TITLE",
+          "text": "drain the hot tub"
+        }
+      ],
+      "expect": {
+        "priority": "p2",
+        "title": "drain the hot tub"
+      }
+    },
+    {
+      "id": "prio-038",
+      "text": "scan the old negatives, don't care when",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "scan the old negatives"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "don't care when"
+        }
+      ],
+      "expect": {
+        "title": "scan the old negatives",
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "prio-039",
+      "text": "book a slot at the tip — fairly pressing",
+      "today": "2026-09-14",
+      "categories": [
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book a slot at the tip"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "fairly pressing"
+        }
+      ],
+      "expect": {
+        "title": "book a slot at the tip",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "time-020",
+      "text": "collect the prescription glasses at quarter past two",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the prescription glasses"
+        },
+        {
+          "label": "TIME",
+          "text": "at quarter past two"
+        }
+      ],
+      "expect": {
+        "title": "collect the prescription glasses",
+        "due_time": "14:15",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-021",
+      "text": "return the faulty kettle half past four",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "return the faulty kettle"
+        },
+        {
+          "label": "TIME",
+          "text": "half past four"
+        }
+      ],
+      "expect": {
+        "title": "return the faulty kettle",
+        "due_time": "16:30",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-022",
+      "text": "brief the contractors at seven sharp",
+      "today": "2026-09-16",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "note": "Seven with no am/pm marker; evening assumed.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "brief the contractors"
+        },
+        {
+          "label": "TIME",
+          "text": "at seven sharp"
+        }
+      ],
+      "expect": {
+        "title": "brief the contractors",
+        "due_time": "19:00",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "time-023",
+      "text": "drop the keys at the agent just before eleven",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "vague-time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "drop the keys at the agent"
+        },
+        {
+          "label": "TIME",
+          "text": "just before eleven"
+        }
+      ],
+      "expect": {
+        "title": "drop the keys at the agent",
+        "due_time": "11:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-024",
+      "text": "defragment the archive drive last thing",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time"
+      ],
+      "note": "\"last thing\" assumed end of the working day.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "defragment the archive drive"
+        },
+        {
+          "label": "TIME",
+          "text": "last thing"
+        }
+      ],
+      "expect": {
+        "title": "defragment the archive drive",
+        "due_time": "17:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-025",
+      "text": "ring the surveyor dead on 2",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ring the surveyor"
+        },
+        {
+          "label": "TIME",
+          "text": "dead on 2"
+        }
+      ],
+      "expect": {
+        "title": "ring the surveyor",
+        "due_time": "14:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-026",
+      "text": "water the seedlings before the shops shut",
+      "today": "2026-09-18",
+      "categories": [
+        "vague-time"
+      ],
+      "note": "Assumed 17:00.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "water the seedlings"
+        },
+        {
+          "label": "TIME",
+          "text": "before the shops shut"
+        }
+      ],
+      "expect": {
+        "title": "water the seedlings",
+        "due_time": "17:00",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "time-027",
+      "text": "submit the meter photo by 11am latest",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "submit the meter photo"
+        },
+        {
+          "label": "TIME",
+          "text": "by 11am latest"
+        }
+      ],
+      "expect": {
+        "title": "submit the meter photo",
+        "due_time": "11:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-028",
+      "text": "call the roofer during the lunch break",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "call the roofer"
+        },
+        {
+          "label": "TIME",
+          "text": "during the lunch break"
+        }
+      ],
+      "expect": {
+        "title": "call the roofer",
+        "due_time": "13:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-029",
+      "text": "unlock the workshop door when the office opens",
+      "today": "2026-09-16",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "unlock the workshop door"
+        },
+        {
+          "label": "TIME",
+          "text": "when the office opens"
+        }
+      ],
+      "expect": {
+        "title": "unlock the workshop door",
+        "due_time": "09:00",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "time-030",
+      "text": "email the accountant at 2 o'clock",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "email the accountant"
+        },
+        {
+          "label": "TIME",
+          "text": "at 2 o'clock"
+        }
+      ],
+      "expect": {
+        "title": "email the accountant",
+        "due_time": "14:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-031",
+      "text": "feed the fish ten to six",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "feed the fish"
+        },
+        {
+          "label": "TIME",
+          "text": "ten to six"
+        }
+      ],
+      "expect": {
+        "title": "feed the fish",
+        "due_time": "17:50",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-032",
+      "text": "stack the dishwasher before bed",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "stack the dishwasher"
+        },
+        {
+          "label": "TIME",
+          "text": "before bed"
+        }
+      ],
+      "expect": {
+        "title": "stack the dishwasher",
+        "due_time": "21:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-033",
+      "text": "close the till at close of play",
+      "today": "2026-09-18",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "close the till"
+        },
+        {
+          "label": "TIME",
+          "text": "at close of play"
+        }
+      ],
+      "expect": {
+        "title": "close the till",
+        "due_time": "17:00",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "time-034",
+      "text": "drop the twins at swimming straight after the school run",
+      "today": "2026-09-14",
+      "categories": [
+        "vague-time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "drop the twins at swimming"
+        },
+        {
+          "label": "TIME",
+          "text": "straight after the school run"
+        }
+      ],
+      "expect": {
+        "title": "drop the twins at swimming",
+        "due_time": "09:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-035",
+      "text": "ping the supplier no later than 5",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ping the supplier"
+        },
+        {
+          "label": "TIME",
+          "text": "no later than 5"
+        }
+      ],
+      "expect": {
+        "title": "ping the supplier",
+        "due_time": "17:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "slang-010",
+      "text": "sort the recycling b4 the collection",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang"
+      ],
+      "note": "\"b4\" is a preposition here, not a date word. Confirm whether this should have a date at all.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort the recycling"
+        },
+        {
+          "label": "DATE",
+          "text": "b4"
+        }
+      ],
+      "expect": {
+        "title": "sort the recycling",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "slang-011",
+      "text": "chase the invoice asap",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chase the invoice"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "asap"
+        }
+      ],
+      "expect": {
+        "title": "chase the invoice",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "slang-013",
+      "text": "book the van in for its MOT thurs am",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the van in for its MOT"
+        },
+        {
+          "label": "DATE",
+          "text": "thurs"
+        },
+        {
+          "label": "TIME",
+          "text": "am"
+        }
+      ],
+      "expect": {
+        "title": "book the van in for its MOT",
+        "due_date": "2026-09-17",
+        "due_time": "09:00"
+      }
+    },
+    {
+      "id": "slang-014",
+      "text": "email hr re the contract mon",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation"
+      ],
+      "note": "From a Monday, bare \"mon\" could mean today or next week. Assumed next Monday.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "email hr re the contract"
+        },
+        {
+          "label": "DATE",
+          "text": "mon"
+        }
+      ],
+      "expect": {
+        "title": "email hr re the contract",
+        "due_date": "2026-09-21"
+      }
+    },
+    {
+      "id": "slang-015",
+      "text": "crack on with the quotes after the brew",
+      "today": "2026-09-18",
+      "categories": [
+        "abbreviation",
+        "slang",
+        "uncommon-phrasing"
+      ],
+      "note": "Trailing clause is not metadata and not part of the title.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "crack on with the quotes"
+        }
+      ],
+      "expect": {
+        "title": "crack on with the quotes"
+      }
+    },
+    {
+      "id": "slang-016",
+      "text": "send the spec thru tmw",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the spec thru"
+        },
+        {
+          "label": "DATE",
+          "text": "tmw"
+        }
+      ],
+      "expect": {
+        "title": "send the spec thru",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "slang-017",
+      "text": "gimme a shout about the fence sat",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "gimme a shout about the fence"
+        },
+        {
+          "label": "DATE",
+          "text": "sat"
+        }
+      ],
+      "expect": {
+        "title": "gimme a shout about the fence",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "slang-018",
+      "text": "wfh thursday — prep the deck",
+      "today": "2026-09-16",
+      "categories": [
+        "abbreviation"
+      ],
+      "note": "\"thursday\" here modifies wfh, not the task deadline. Confirm.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "wfh thursday — prep the deck"
+        }
+      ],
+      "expect": {
+        "title": "wfh thursday — prep the deck"
+      }
+    },
+    {
+      "id": "slang-019",
+      "text": "approve the po eod",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "approve the po"
+        },
+        {
+          "label": "DATE",
+          "text": "eod"
+        }
+      ],
+      "expect": {
+        "title": "approve the po",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "slang-020",
+      "text": "nip to the tip this arvo",
+      "today": "2026-09-14",
+      "categories": [
+        "abbreviation",
+        "slang"
+      ],
+      "note": "Australian slang for afternoon.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "nip to the tip"
+        },
+        {
+          "label": "TIME",
+          "text": "this arvo"
+        }
+      ],
+      "expect": {
+        "title": "nip to the tip",
+        "due_time": "14:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "trap-010",
+      "text": "book a personal trainer session",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book a personal trainer session"
+        }
+      ],
+      "expect": {
+        "title": "book a personal trainer session"
+      }
+    },
+    {
+      "id": "trap-011",
+      "text": "request admin rights for the new laptop",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "request admin rights for the new laptop"
+        }
+      ],
+      "expect": {
+        "title": "request admin rights for the new laptop"
+      }
+    },
+    {
+      "id": "trap-012",
+      "text": "file the health and safety review",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "file the health and safety review"
+        }
+      ],
+      "expect": {
+        "title": "file the health and safety review"
+      }
+    },
+    {
+      "id": "trap-013",
+      "text": "print the finance director's report",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "print the finance director's report"
+        }
+      ],
+      "expect": {
+        "title": "print the finance director's report"
+      }
+    },
+    {
+      "id": "trap-014",
+      "text": "find the workshop manual for the van",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "find the workshop manual for the van"
+        }
+      ],
+      "expect": {
+        "title": "find the workshop manual for the van"
+      }
+    },
+    {
+      "id": "trap-015",
+      "text": "update the sat nav maps",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "note": "\"sat\" must not read as Saturday.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "update the sat nav maps"
+        }
+      ],
+      "expect": {
+        "title": "update the sat nav maps"
+      }
+    },
+    {
+      "id": "trap-016",
+      "text": "may i borrow the pressure washer",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "note": "\"may\" as a verb.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "may i borrow the pressure washer"
+        }
+      ],
+      "expect": {
+        "title": "may i borrow the pressure washer"
+      }
+    },
+    {
+      "id": "trap-017",
+      "text": "order a sun lounger",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order a sun lounger"
+        }
+      ],
+      "expect": {
+        "title": "order a sun lounger"
+      }
+    },
+    {
+      "id": "trap-018",
+      "text": "rehearse for the march past",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "rehearse for the march past"
+        }
+      ],
+      "expect": {
+        "title": "rehearse for the march past"
+      }
+    },
+    {
+      "id": "trap-019",
+      "text": "hang the april showers display",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "hang the april showers display"
+        }
+      ],
+      "expect": {
+        "title": "hang the april showers display"
+      }
+    },
+    {
+      "id": "trap-020",
+      "text": "the errands list needs a tidy",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the errands list needs a tidy"
+        }
+      ],
+      "expect": {
+        "title": "the errands list needs a tidy"
+      }
+    },
+    {
+      "id": "trap-021",
+      "text": "buy a table for six",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-duration",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "buy a table for six"
+        }
+      ],
+      "expect": {
+        "title": "buy a table for six"
+      }
+    },
+    {
+      "id": "trap-022",
+      "text": "count out 30 raffle tickets",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-duration",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "count out 30 raffle tickets"
+        }
+      ],
+      "expect": {
+        "title": "count out 30 raffle tickets"
+      }
+    },
+    {
+      "id": "trap-023",
+      "text": "label the august stock take boxes",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "label the august stock take boxes"
+        }
+      ],
+      "expect": {
+        "title": "label the august stock take boxes"
+      }
+    },
+    {
+      "id": "trap-024",
+      "text": "ring 3 plumbers for quotes",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "ring 3 plumbers for quotes"
+        }
+      ],
+      "expect": {
+        "title": "ring 3 plumbers for quotes"
+      }
+    },
+    {
+      "id": "trap-025",
+      "text": "cancel the personal training block",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "cancel the personal training block"
+        }
+      ],
+      "expect": {
+        "title": "cancel the personal training block"
+      }
+    },
+    {
+      "id": "trap-026",
+      "text": "bookmark https://example.org/tools/may-calendar",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "url",
+        "no-metadata"
+      ],
+      "note": "The URL contains \"may\" and a \"//\" that must not start notes.",
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "bookmark https://example.org/tools/may-calendar"
+        }
+      ],
+      "expect": {
+        "title": "bookmark https://example.org/tools/may-calendar"
+      }
+    },
+    {
+      "id": "trap-027",
+      "text": "frame the wednesday addams poster",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "frame the wednesday addams poster"
+        }
+      ],
+      "expect": {
+        "title": "frame the wednesday addams poster"
+      }
+    },
+    {
+      "id": "trap-028",
+      "text": "weigh out 5 kg of feed",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "weigh out 5 kg of feed"
+        }
+      ],
+      "expect": {
+        "title": "weigh out 5 kg of feed"
+      }
+    },
+    {
+      "id": "trap-029",
+      "text": "archive the workshop floor plans",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "archive the workshop floor plans"
+        }
+      ],
+      "expect": {
+        "title": "archive the workshop floor plans"
+      }
+    },
+    {
+      "id": "trap-030",
+      "text": "repair the sunday best suit",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "repair the sunday best suit"
+        }
+      ],
+      "expect": {
+        "title": "repair the sunday best suit"
+      }
+    },
+    {
+      "id": "trap-031",
+      "text": "split the bill 4 ways",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "split the bill 4 ways"
+        }
+      ],
+      "expect": {
+        "title": "split the bill 4 ways"
+      }
+    },
+    {
+      "id": "trap-032",
+      "text": "reply about the finance lease enquiry",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reply about the finance lease enquiry"
+        }
+      ],
+      "expect": {
+        "title": "reply about the finance lease enquiry"
+      }
+    },
+    {
+      "id": "trap-033",
+      "text": "dig over the march planting bed",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "dig over the march planting bed"
+        }
+      ],
+      "expect": {
+        "title": "dig over the march planting bed"
+      }
+    },
+    {
+      "id": "trap-034",
+      "text": "renew the health insurance paperwork",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the health insurance paperwork"
+        }
+      ],
+      "expect": {
+        "title": "renew the health insurance paperwork"
+      }
+    },
+    {
+      "id": "date-020",
+      "text": "collect the hire car the day after tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the hire car"
+        },
+        {
+          "label": "DATE",
+          "text": "the day after tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "collect the hire car",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "date-021",
+      "text": "chase the surveyor report a week today",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chase the surveyor report"
+        },
+        {
+          "label": "DATE",
+          "text": "a week today"
+        }
+      ],
+      "expect": {
+        "title": "chase the surveyor report",
+        "due_date": "2026-09-21"
+      }
+    },
+    {
+      "id": "date-022",
+      "text": "renew the parking permit in ten days",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the parking permit"
+        },
+        {
+          "label": "DATE",
+          "text": "in ten days"
+        }
+      ],
+      "expect": {
+        "title": "renew the parking permit",
+        "due_date": "2026-09-24"
+      }
+    },
+    {
+      "id": "date-023",
+      "text": "settle the card bill on the 25th",
+      "today": "2026-09-14",
+      "categories": [
+        "day-of-month"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "settle the card bill"
+        },
+        {
+          "label": "DATE",
+          "text": "on the 25th"
+        }
+      ],
+      "expect": {
+        "title": "settle the card bill",
+        "due_date": "2026-09-25"
+      }
+    },
+    {
+      "id": "date-024",
+      "text": "submit the grant claim start of next month",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "submit the grant claim"
+        },
+        {
+          "label": "DATE",
+          "text": "start of next month"
+        }
+      ],
+      "expect": {
+        "title": "submit the grant claim",
+        "due_date": "2026-10-01"
+      }
+    },
+    {
+      "id": "date-025",
+      "text": "switch the heating over beginning of october",
+      "today": "2026-09-16",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "switch the heating over"
+        },
+        {
+          "label": "DATE",
+          "text": "beginning of october"
+        }
+      ],
+      "expect": {
+        "title": "switch the heating over",
+        "due_date": "2026-10-01"
+      }
+    },
+    {
+      "id": "date-026",
+      "text": "review the trial results a fortnight from now",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "review the trial results"
+        },
+        {
+          "label": "DATE",
+          "text": "a fortnight from now"
+        }
+      ],
+      "expect": {
+        "title": "review the trial results",
+        "due_date": "2026-09-28"
+      }
+    },
+    {
+      "id": "date-027",
+      "text": "strip the guest bed over the weekend",
+      "today": "2026-09-18",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "strip the guest bed"
+        },
+        {
+          "label": "DATE",
+          "text": "over the weekend"
+        }
+      ],
+      "expect": {
+        "title": "strip the guest bed",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "date-028",
+      "text": "post the rent cheque this friday",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "post the rent cheque"
+        },
+        {
+          "label": "DATE",
+          "text": "this friday"
+        }
+      ],
+      "expect": {
+        "title": "post the rent cheque",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "date-029",
+      "text": "empty the gutters sunday",
+      "today": "2026-09-16",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "empty the gutters"
+        },
+        {
+          "label": "DATE",
+          "text": "sunday"
+        }
+      ],
+      "expect": {
+        "title": "empty the gutters",
+        "due_date": "2026-09-20"
+      }
+    },
+    {
+      "id": "date-030",
+      "text": "order the winter oil before the month is out",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order the winter oil"
+        },
+        {
+          "label": "DATE",
+          "text": "before the month is out"
+        }
+      ],
+      "expect": {
+        "title": "order the winter oil",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "date-031",
+      "text": "thursday: drop the samples at the lab",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date",
+        "leading-date"
+      ],
+      "spans": [
+        {
+          "label": "DATE",
+          "text": "thursday"
+        },
+        {
+          "label": "TITLE",
+          "text": "drop the samples at the lab"
+        }
+      ],
+      "expect": {
+        "due_date": "2026-09-17",
+        "title": "drop the samples at the lab"
+      }
+    },
+    {
+      "id": "date-032",
+      "text": "defrost the chest freezer monday",
+      "today": "2026-09-18",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "defrost the chest freezer"
+        },
+        {
+          "label": "DATE",
+          "text": "monday"
+        }
+      ],
+      "expect": {
+        "title": "defrost the chest freezer",
+        "due_date": "2026-09-21"
+      }
+    },
+    {
+      "id": "date-033",
+      "text": "confirm the caterers later this week",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "note": "\"later this week\" assumed end of the working week.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "confirm the caterers"
+        },
+        {
+          "label": "DATE",
+          "text": "later this week"
+        }
+      ],
+      "expect": {
+        "title": "confirm the caterers",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "date-034",
+      "text": "return the library books in 2 days",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "return the library books"
+        },
+        {
+          "label": "DATE",
+          "text": "in 2 days"
+        }
+      ],
+      "expect": {
+        "title": "return the library books",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "date-035",
+      "text": "pay the window cleaner early next week",
+      "today": "2026-09-14",
+      "categories": [
+        "ambiguous-date"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pay the window cleaner"
+        },
+        {
+          "label": "DATE",
+          "text": "early next week"
+        }
+      ],
+      "expect": {
+        "title": "pay the window cleaner",
+        "due_date": "2026-09-21"
+      }
+    },
+    {
+      "id": "date-036",
+      "text": "send the quarterly figures on the 30th",
+      "today": "2026-09-16",
+      "categories": [
+        "day-of-month"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the quarterly figures"
+        },
+        {
+          "label": "DATE",
+          "text": "on the 30th"
+        }
+      ],
+      "expect": {
+        "title": "send the quarterly figures",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "date-037",
+      "text": "renew the vehicle tax 2026-11-01",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the vehicle tax"
+        },
+        {
+          "label": "DATE",
+          "text": "2026-11-01"
+        }
+      ],
+      "expect": {
+        "title": "renew the vehicle tax",
+        "due_date": "2026-11-01"
+      }
+    },
+    {
+      "id": "date-038",
+      "text": "book the flu jab oct 3",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the flu jab"
+        },
+        {
+          "label": "DATE",
+          "text": "oct 3"
+        }
+      ],
+      "expect": {
+        "title": "book the flu jab",
+        "due_date": "2026-10-03"
+      }
+    },
+    {
+      "id": "date-039",
+      "text": "^wednesday draft the tender response",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date",
+        "scheduled"
+      ],
+      "spans": [
+        {
+          "label": "SCHEDULED",
+          "text": "^wednesday"
+        },
+        {
+          "label": "TITLE",
+          "text": "draft the tender response"
+        }
+      ],
+      "expect": {
+        "scheduled": "2026-09-16",
+        "title": "draft the tender response"
+      }
+    },
+    {
+      "id": "recur-010",
+      "text": "top up the bird feeder every single day",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "top up the bird feeder"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every single day"
+        }
+      ],
+      "expect": {
+        "title": "top up the bird feeder",
+        "recurrence": "Every day",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-011",
+      "text": "empty the office bins each weekday",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "empty the office bins"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "each weekday"
+        }
+      ],
+      "expect": {
+        "title": "empty the office bins",
+        "recurrence": "Every weekday",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-012",
+      "text": "run the payroll export on tuesdays",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "run the payroll export"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "on tuesdays"
+        }
+      ],
+      "expect": {
+        "title": "run the payroll export",
+        "recurrence": "Every Tuesday",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "recur-013",
+      "text": "deep clean the fryer every second tuesday",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "uncommon-phrasing"
+      ],
+      "note": "Confirm the parser supports \"every second <weekday>\".",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "deep clean the fryer"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every second tuesday"
+        }
+      ],
+      "expect": {
+        "title": "deep clean the fryer",
+        "recurrence": "Every 2 weeks on Tuesday",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "recur-014",
+      "text": "reconcile the card machine on a monthly basis",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reconcile the card machine"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "on a monthly basis"
+        }
+      ],
+      "expect": {
+        "title": "reconcile the card machine",
+        "recurrence": "Every month",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-015",
+      "text": "service the extractor fan once a year",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "service the extractor fan"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "once a year"
+        }
+      ],
+      "expect": {
+        "title": "service the extractor fan",
+        "recurrence": "Every year",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-016",
+      "text": "change the water filter every 4 days",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "change the water filter"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every 4 days"
+        }
+      ],
+      "expect": {
+        "title": "change the water filter",
+        "recurrence": "Every 4 days",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-017",
+      "text": "audit the fire doors every 3 months",
+      "today": "2026-09-14",
+      "categories": [
+        "recurrence",
+        "uncommon-phrasing"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "audit the fire doors"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every 3 months"
+        }
+      ],
+      "expect": {
+        "title": "audit the fire doors",
+        "recurrence": "Every 3 months",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "recur-018",
+      "text": "wipe down the shelves every wednesday",
+      "today": "2026-09-16",
+      "categories": [
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "wipe down the shelves"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every wednesday"
+        }
+      ],
+      "expect": {
+        "title": "wipe down the shelves",
+        "recurrence": "Every Wednesday",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "dur-010",
+      "text": "hoover the stairs, a good half hour",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "hoover the stairs"
+        },
+        {
+          "label": "DURATION",
+          "text": "a good half hour"
+        }
+      ],
+      "expect": {
+        "title": "hoover the stairs",
+        "estimate_minutes": 30
+      }
+    },
+    {
+      "id": "dur-011",
+      "text": "refile the invoices - twenty minutes or so",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "refile the invoices"
+        },
+        {
+          "label": "DURATION",
+          "text": "twenty minutes or so"
+        }
+      ],
+      "expect": {
+        "title": "refile the invoices",
+        "estimate_minutes": 20
+      }
+    },
+    {
+      "id": "dur-012",
+      "text": "strip the wallpaper, the best part of an hour",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "strip the wallpaper"
+        },
+        {
+          "label": "DURATION",
+          "text": "the best part of an hour"
+        }
+      ],
+      "expect": {
+        "title": "strip the wallpaper",
+        "estimate_minutes": 60
+      }
+    },
+    {
+      "id": "dur-013",
+      "text": "draft the handover note, three quarters of an hour",
+      "today": "2026-09-16",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "draft the handover note"
+        },
+        {
+          "label": "DURATION",
+          "text": "three quarters of an hour"
+        }
+      ],
+      "expect": {
+        "title": "draft the handover note",
+        "estimate_minutes": 45
+      }
+    },
+    {
+      "id": "dur-014",
+      "text": "reset the router - ten minutes tops",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reset the router"
+        },
+        {
+          "label": "DURATION",
+          "text": "ten minutes tops"
+        }
+      ],
+      "expect": {
+        "title": "reset the router",
+        "estimate_minutes": 10
+      }
+    },
+    {
+      "id": "dur-015",
+      "text": "sand the window frames, a couple of hours",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sand the window frames"
+        },
+        {
+          "label": "DURATION",
+          "text": "a couple of hours"
+        }
+      ],
+      "expect": {
+        "title": "sand the window frames",
+        "estimate_minutes": 120
+      }
+    },
+    {
+      "id": "dur-016",
+      "text": "proofread the flyer ~40m",
+      "today": "2026-09-14",
+      "categories": [
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "proofread the flyer"
+        },
+        {
+          "label": "DURATION",
+          "text": "~40m"
+        }
+      ],
+      "expect": {
+        "title": "proofread the flyer",
+        "estimate_minutes": 40
+      }
+    },
+    {
+      "id": "dur-017",
+      "text": "rewire the lamp, 1.5 hours",
+      "today": "2026-09-18",
+      "categories": [
+        "duration"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "rewire the lamp"
+        },
+        {
+          "label": "DURATION",
+          "text": "1.5 hours"
+        }
+      ],
+      "expect": {
+        "title": "rewire the lamp",
+        "estimate_minutes": 90
+      }
+    },
+    {
+      "id": "proj-010",
+      "text": "commission the survey #Home Renovation friday",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "commission the survey"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Home Renovation"
+        },
+        {
+          "label": "DATE",
+          "text": "friday"
+        }
+      ],
+      "expect": {
+        "title": "commission the survey",
+        "project": "Home Renovation",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "proj-011",
+      "text": "write up the threat model for Hacking Challenge",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "bare-project-name"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "write up the threat model"
+        },
+        {
+          "label": "PROJECT",
+          "text": "for Hacking Challenge"
+        }
+      ],
+      "expect": {
+        "title": "write up the threat model",
+        "project": "Hacking Challenge"
+      }
+    },
+    {
+      "id": "proj-012",
+      "text": "invoice the retainer for SMEC Technologies @finance",
+      "today": "2026-09-16",
+      "categories": [
+        "project",
+        "bare-project-name",
+        "tag"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "invoice the retainer"
+        },
+        {
+          "label": "PROJECT",
+          "text": "for SMEC Technologies"
+        },
+        {
+          "label": "TAG",
+          "text": "@finance"
+        }
+      ],
+      "expect": {
+        "title": "invoice the retainer",
+        "project": "SMEC Technologies",
+        "tags": [
+          "finance"
+        ]
+      }
+    },
+    {
+      "id": "proj-013",
+      "text": "book the blood test @health tuesday",
+      "today": "2026-09-14",
+      "categories": [
+        "tag",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the blood test"
+        },
+        {
+          "label": "TAG",
+          "text": "@health"
+        },
+        {
+          "label": "DATE",
+          "text": "tuesday"
+        }
+      ],
+      "expect": {
+        "title": "book the blood test",
+        "tags": [
+          "health"
+        ],
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "proj-014",
+      "text": "reglaze the back door #Home Renovation @errands ~2h",
+      "today": "2026-09-14",
+      "categories": [
+        "tag",
+        "project",
+        "duration",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reglaze the back door"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Home Renovation"
+        },
+        {
+          "label": "TAG",
+          "text": "@errands"
+        },
+        {
+          "label": "DURATION",
+          "text": "~2h"
+        }
+      ],
+      "expect": {
+        "title": "reglaze the back door",
+        "project": "Home Renovation",
+        "tags": [
+          "errands"
+        ],
+        "estimate_minutes": 120
+      }
+    },
+    {
+      "id": "proj-015",
+      "text": "set up the soldering bench #Workshop",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "set up the soldering bench"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Workshop"
+        }
+      ],
+      "expect": {
+        "title": "set up the soldering bench",
+        "project": "Workshop"
+      }
+    },
+    {
+      "id": "proj-016",
+      "text": "collect the repeat script @health @errands",
+      "today": "2026-09-14",
+      "categories": [
+        "tag"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the repeat script"
+        },
+        {
+          "label": "TAG",
+          "text": "@health"
+        },
+        {
+          "label": "TAG",
+          "text": "@errands"
+        }
+      ],
+      "expect": {
+        "title": "collect the repeat script",
+        "tags": [
+          "health",
+          "errands"
+        ]
+      }
+    },
+    {
+      "id": "list-010",
+      "text": "repaint the porch +sand +undercoat +topcoat",
+      "today": "2026-09-14",
+      "categories": [
+        "checklist",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "repaint the porch"
+        },
+        {
+          "label": "STEP",
+          "text": "+sand"
+        },
+        {
+          "label": "STEP",
+          "text": "+undercoat"
+        },
+        {
+          "label": "STEP",
+          "text": "+topcoat"
+        }
+      ],
+      "expect": {
+        "title": "repaint the porch",
+        "subtasks": [
+          "sand",
+          "undercoat",
+          "topcoat"
+        ]
+      }
+    },
+    {
+      "id": "list-011",
+      "text": "book the chimney sweep // they only do mornings",
+      "today": "2026-09-14",
+      "categories": [
+        "notes",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the chimney sweep"
+        },
+        {
+          "label": "NOTE",
+          "text": "they only do mornings"
+        }
+      ],
+      "expect": {
+        "title": "book the chimney sweep",
+        "notes": "they only do mornings"
+      }
+    },
+    {
+      "id": "list-012",
+      "text": "close the old account +download statements +cancel standing orders // bring two forms of id",
+      "today": "2026-09-16",
+      "categories": [
+        "checklist",
+        "notes",
+        "explicit-syntax"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "close the old account"
+        },
+        {
+          "label": "STEP",
+          "text": "+download statements"
+        },
+        {
+          "label": "STEP",
+          "text": "+cancel standing orders"
+        },
+        {
+          "label": "NOTE",
+          "text": "bring two forms of id"
+        }
+      ],
+      "expect": {
+        "title": "close the old account",
+        "subtasks": [
+          "download statements",
+          "cancel standing orders"
+        ],
+        "notes": "bring two forms of id"
+      }
+    },
+    {
+      "id": "list-013",
+      "text": "query the water bill // meter was read in july",
+      "today": "2026-09-14",
+      "categories": [
+        "notes"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "query the water bill"
+        },
+        {
+          "label": "NOTE",
+          "text": "meter was read in july"
+        }
+      ],
+      "expect": {
+        "title": "query the water bill",
+        "notes": "meter was read in july"
+      }
+    },
+    {
+      "id": "short-010",
+      "text": "bins",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "bins"
+        }
+      ],
+      "expect": {
+        "title": "bins"
+      }
+    },
+    {
+      "id": "short-011",
+      "text": "passport photos",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "passport photos"
+        }
+      ],
+      "expect": {
+        "title": "passport photos"
+      }
+    },
+    {
+      "id": "short-012",
+      "text": "haircut at 4",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "haircut"
+        },
+        {
+          "label": "TIME",
+          "text": "at 4"
+        }
+      ],
+      "expect": {
+        "title": "haircut",
+        "due_time": "16:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "short-013",
+      "text": "dentist",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "dentist"
+        }
+      ],
+      "expect": {
+        "title": "dentist"
+      }
+    },
+    {
+      "id": "short-014",
+      "text": "mot, urgent",
+      "today": "2026-09-14",
+      "categories": [
+        "very-short",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "mot"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "urgent"
+        }
+      ],
+      "expect": {
+        "title": "mot",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "long-010",
+      "text": "right, get three quotes for re-pointing the back wall before the end of the month because the scaffolding comes down then, fairly pressing",
+      "today": "2026-09-14",
+      "categories": [
+        "very-long",
+        "conversational",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "get three quotes for re-pointing the back wall"
+        },
+        {
+          "label": "DATE",
+          "text": "before the end of the month"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "fairly pressing"
+        }
+      ],
+      "expect": {
+        "title": "get three quotes for re-pointing the back wall",
+        "due_date": "2026-09-30",
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "long-011",
+      "text": "sort out the loft insulation paperwork for the grant people, probably an hour and a half of digging through the folder",
+      "today": "2026-09-16",
+      "categories": [
+        "very-long",
+        "conversational",
+        "duration"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort out the loft insulation paperwork"
+        },
+        {
+          "label": "DURATION",
+          "text": "probably an hour and a half"
+        }
+      ],
+      "expect": {
+        "title": "sort out the loft insulation paperwork",
+        "estimate_minutes": 90
+      }
+    },
+    {
+      "id": "long-012",
+      "text": "speak to the neighbours about the boundary hedge saturday while everyone is actually in",
+      "today": "2026-09-14",
+      "categories": [
+        "very-long",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "speak to the neighbours about the boundary hedge"
+        },
+        {
+          "label": "DATE",
+          "text": "saturday"
+        }
+      ],
+      "expect": {
+        "title": "speak to the neighbours about the boundary hedge",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "long-013",
+      "text": "plan the open day: +book the marquee +order the signage +brief the volunteers, all of it before the 25th",
+      "today": "2026-09-14",
+      "categories": [
+        "very-long",
+        "conversational",
+        "checklist"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "plan the open day"
+        },
+        {
+          "label": "STEP",
+          "text": "+book the marquee"
+        },
+        {
+          "label": "STEP",
+          "text": "+order the signage"
+        },
+        {
+          "label": "STEP",
+          "text": "+brief the volunteers"
+        },
+        {
+          "label": "DATE",
+          "text": "before the 25th"
+        }
+      ],
+      "expect": {
+        "title": "plan the open day",
+        "subtasks": [
+          "book the marquee",
+          "order the signage",
+          "brief the volunteers"
+        ],
+        "due_date": "2026-09-25"
+      }
+    },
+    {
+      "id": "semantic-010",
+      "text": "sign off the drawings once the structural engineer comes back",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "unresolvable-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sign off the drawings"
+        }
+      ],
+      "expect": {
+        "title": "sign off the drawings"
+      }
+    },
+    {
+      "id": "semantic-011",
+      "text": "order the replacement glass after the fitter has measured up",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "unresolvable-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order the replacement glass"
+        }
+      ],
+      "expect": {
+        "title": "order the replacement glass"
+      }
+    },
+    {
+      "id": "semantic-012",
+      "text": "pick up where we left off on the ventilation issue",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pick up where we left off on the ventilation issue"
+        }
+      ],
+      "expect": {
+        "title": "pick up where we left off on the ventilation issue"
+      }
+    },
+    {
+      "id": "semantic-013",
+      "text": "settle up with dave when the job is finally signed off",
+      "today": "2026-09-14",
+      "categories": [
+        "semantic-inference",
+        "unresolvable-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "settle up with dave"
+        }
+      ],
+      "expect": {
+        "title": "settle up with dave"
+      }
+    },
+    {
+      "id": "semantic-014",
+      "text": "work out what to do about the damp",
+      "today": "2026-09-16",
+      "categories": [
+        "semantic-inference",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "work out what to do about the damp"
+        }
+      ],
+      "expect": {
+        "title": "work out what to do about the damp"
+      }
+    },
+    {
+      "id": "typo-010",
+      "text": "colect the parcle tommorow",
+      "today": "2026-09-14",
+      "categories": [
+        "typo"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "colect the parcle"
+        },
+        {
+          "label": "DATE",
+          "text": "tommorow"
+        }
+      ],
+      "expect": {
+        "title": "colect the parcle",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "typo-011",
+      "text": "rebook the aperatus test wensday",
+      "today": "2026-09-14",
+      "categories": [
+        "typo"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "rebook the aperatus test"
+        },
+        {
+          "label": "DATE",
+          "text": "wensday"
+        }
+      ],
+      "expect": {
+        "title": "rebook the aperatus test",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "typo-012",
+      "text": "fix the leeking tap, criticl",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "fix the leeking tap"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "criticl"
+        }
+      ],
+      "expect": {
+        "title": "fix the leeking tap",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "typo-013",
+      "text": "reorder the stationary fridy",
+      "today": "2026-09-16",
+      "categories": [
+        "typo"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reorder the stationary"
+        },
+        {
+          "label": "DATE",
+          "text": "fridy"
+        }
+      ],
+      "expect": {
+        "title": "reorder the stationary",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "typo-014",
+      "text": "chek the oil levl evry month",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chek the oil levl"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "evry month"
+        }
+      ],
+      "expect": {
+        "title": "chek the oil levl",
+        "recurrence": "Every month",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "typo-015",
+      "text": "phone the vet this aftrnoon",
+      "today": "2026-09-14",
+      "categories": [
+        "typo",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "phone the vet"
+        },
+        {
+          "label": "TIME",
+          "text": "this aftrnoon"
+        }
+      ],
+      "expect": {
+        "title": "phone the vet",
+        "due_time": "14:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "ctrl-010",
+      "text": "file the VAT return friday !p1 @finance",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "file the VAT return"
+        },
+        {
+          "label": "DATE",
+          "text": "friday"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p1"
+        },
+        {
+          "label": "TAG",
+          "text": "@finance"
+        }
+      ],
+      "expect": {
+        "title": "file the VAT return",
+        "due_date": "2026-09-18",
+        "priority": "p1",
+        "tags": [
+          "finance"
+        ]
+      }
+    },
+    {
+      "id": "ctrl-011",
+      "text": "stocktake tomorrow 9am ~3h #Workshop",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "stocktake"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "TIME",
+          "text": "9am"
+        },
+        {
+          "label": "DURATION",
+          "text": "~3h"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Workshop"
+        }
+      ],
+      "expect": {
+        "title": "stocktake",
+        "due_date": "2026-09-15",
+        "due_time": "09:00",
+        "estimate_minutes": 180,
+        "project": "Workshop"
+      }
+    },
+    {
+      "id": "ctrl-012",
+      "text": "order the skip wednesday !p2 #Home Renovation",
+      "today": "2026-09-14",
+      "categories": [
+        "explicit-syntax",
+        "control"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order the skip"
+        },
+        {
+          "label": "DATE",
+          "text": "wednesday"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "!p2"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Home Renovation"
+        }
+      ],
+      "expect": {
+        "title": "order the skip",
+        "due_date": "2026-09-16",
+        "priority": "p2",
+        "project": "Home Renovation"
+      }
+    },
+    {
+      "id": "trap-040",
+      "text": "buy a mayfly pattern for fishing",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "buy a mayfly pattern for fishing"
+        }
+      ],
+      "expect": {
+        "title": "buy a mayfly pattern for fishing"
+      }
+    },
+    {
+      "id": "trap-041",
+      "text": "fix the march hare ornament",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "fix the march hare ornament"
+        }
+      ],
+      "expect": {
+        "title": "fix the march hare ornament"
+      }
+    },
+    {
+      "id": "trap-042",
+      "text": "replace the satellite dish bracket",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "replace the satellite dish bracket"
+        }
+      ],
+      "expect": {
+        "title": "replace the satellite dish bracket"
+      }
+    },
+    {
+      "id": "trap-043",
+      "text": "the workshop bench needs bracing",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the workshop bench needs bracing"
+        }
+      ],
+      "expect": {
+        "title": "the workshop bench needs bracing"
+      }
+    },
+    {
+      "id": "trap-044",
+      "text": "email the admin team about parking",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "email the admin team about parking"
+        }
+      ],
+      "expect": {
+        "title": "email the admin team about parking"
+      }
+    },
+    {
+      "id": "trap-045",
+      "text": "check the health cover renewal date",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "check the health cover renewal date"
+        }
+      ],
+      "expect": {
+        "title": "check the health cover renewal date"
+      }
+    },
+    {
+      "id": "trap-046",
+      "text": "sort the finance folder on the shared drive",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort the finance folder on the shared drive"
+        }
+      ],
+      "expect": {
+        "title": "sort the finance folder on the shared drive"
+      }
+    },
+    {
+      "id": "trap-047",
+      "text": "print 12 copies of the agenda",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "print 12 copies of the agenda"
+        }
+      ],
+      "expect": {
+        "title": "print 12 copies of the agenda"
+      }
+    },
+    {
+      "id": "trap-048",
+      "text": "buy 6 mugs for the kitchen",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "buy 6 mugs for the kitchen"
+        }
+      ],
+      "expect": {
+        "title": "buy 6 mugs for the kitchen"
+      }
+    },
+    {
+      "id": "trap-049",
+      "text": "fill in the personal details form",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "fill in the personal details form"
+        }
+      ],
+      "expect": {
+        "title": "fill in the personal details form"
+      }
+    },
+    {
+      "id": "trap-050",
+      "text": "proofread the monday club newsletter",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "proofread the monday club newsletter"
+        }
+      ],
+      "expect": {
+        "title": "proofread the monday club newsletter"
+      }
+    },
+    {
+      "id": "trap-051",
+      "text": "sign the leaving card for april",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sign the leaving card for april"
+        }
+      ],
+      "expect": {
+        "title": "sign the leaving card for april"
+      }
+    },
+    {
+      "id": "trap-052",
+      "text": "augment the window display",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "augment the window display"
+        }
+      ],
+      "expect": {
+        "title": "augment the window display"
+      }
+    },
+    {
+      "id": "trap-053",
+      "text": "summarise the june minutes",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "summarise the june minutes"
+        }
+      ],
+      "expect": {
+        "title": "summarise the june minutes"
+      }
+    },
+    {
+      "id": "trap-054",
+      "text": "decorate for the may day fair",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "decorate for the may day fair"
+        }
+      ],
+      "expect": {
+        "title": "decorate for the may day fair"
+      }
+    },
+    {
+      "id": "trap-055",
+      "text": "renew the sunbed membership",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the sunbed membership"
+        }
+      ],
+      "expect": {
+        "title": "renew the sunbed membership"
+      }
+    },
+    {
+      "id": "trap-056",
+      "text": "pin up the wednesday league fixtures",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pin up the wednesday league fixtures"
+        }
+      ],
+      "expect": {
+        "title": "pin up the wednesday league fixtures"
+      }
+    },
+    {
+      "id": "trap-057",
+      "text": "the errands app needs updating",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the errands app needs updating"
+        }
+      ],
+      "expect": {
+        "title": "the errands app needs updating"
+      }
+    },
+    {
+      "id": "trap-058",
+      "text": "cut the rope into 4 lengths",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "cut the rope into 4 lengths"
+        }
+      ],
+      "expect": {
+        "title": "cut the rope into 4 lengths"
+      }
+    },
+    {
+      "id": "trap-059",
+      "text": "book a room for 2",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-duration",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book a room for 2"
+        }
+      ],
+      "expect": {
+        "title": "book a room for 2"
+      }
+    },
+    {
+      "id": "trap-060",
+      "text": "water the sunflowers",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-date",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "water the sunflowers"
+        }
+      ],
+      "expect": {
+        "title": "water the sunflowers"
+      }
+    },
+    {
+      "id": "trap-061",
+      "text": "laminate the workshop safety poster",
+      "today": "2026-09-14",
+      "categories": [
+        "hard-negative",
+        "ambiguous-project",
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "laminate the workshop safety poster"
+        }
+      ],
+      "expect": {
+        "title": "laminate the workshop safety poster"
+      }
+    },
+    {
+      "id": "plain-010",
+      "text": "swap the bathroom bulb",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "swap the bathroom bulb"
+        }
+      ],
+      "expect": {
+        "title": "swap the bathroom bulb"
+      }
+    },
+    {
+      "id": "plain-011",
+      "text": "reseal the bath",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reseal the bath"
+        }
+      ],
+      "expect": {
+        "title": "reseal the bath"
+      }
+    },
+    {
+      "id": "plain-012",
+      "text": "hem the curtains",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "hem the curtains"
+        }
+      ],
+      "expect": {
+        "title": "hem the curtains"
+      }
+    },
+    {
+      "id": "plain-013",
+      "text": "sharpen the kitchen knives",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sharpen the kitchen knives"
+        }
+      ],
+      "expect": {
+        "title": "sharpen the kitchen knives"
+      }
+    },
+    {
+      "id": "plain-014",
+      "text": "replace the letterbox brushes",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "replace the letterbox brushes"
+        }
+      ],
+      "expect": {
+        "title": "replace the letterbox brushes"
+      }
+    },
+    {
+      "id": "plain-015",
+      "text": "wind the grandfather clock",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "wind the grandfather clock"
+        }
+      ],
+      "expect": {
+        "title": "wind the grandfather clock"
+      }
+    },
+    {
+      "id": "plain-016",
+      "text": "restring the guitar",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "restring the guitar"
+        }
+      ],
+      "expect": {
+        "title": "restring the guitar"
+      }
+    },
+    {
+      "id": "plain-017",
+      "text": "oil the door hinges",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "oil the door hinges"
+        }
+      ],
+      "expect": {
+        "title": "oil the door hinges"
+      }
+    },
+    {
+      "id": "plain-018",
+      "text": "back up the phone photos",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "back up the phone photos"
+        }
+      ],
+      "expect": {
+        "title": "back up the phone photos"
+      }
+    },
+    {
+      "id": "plain-019",
+      "text": "top up the salt in the softener",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "top up the salt in the softener"
+        }
+      ],
+      "expect": {
+        "title": "top up the salt in the softener"
+      }
+    },
+    {
+      "id": "plain-020",
+      "text": "i really must clean the oven racks",
+      "today": "2026-09-14",
+      "categories": [
+        "no-metadata",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "clean the oven racks"
+        }
+      ],
+      "expect": {
+        "title": "clean the oven racks"
+      }
+    },
+    {
+      "id": "plain-021",
+      "text": "at some point, sort the sock drawer",
+      "today": "2026-09-16",
+      "categories": [
+        "no-metadata",
+        "conversational"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "sort the sock drawer"
+        }
+      ],
+      "expect": {
+        "title": "sort the sock drawer"
+      }
+    },
+    {
+      "id": "mix-010",
+      "text": "be sure to chase the electrician tomorrow, needs attention now",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "chase the electrician"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "needs attention now"
+        }
+      ],
+      "expect": {
+        "title": "chase the electrician",
+        "due_date": "2026-09-15",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "mix-011",
+      "text": "re-felt the shed roof saturday morning, a couple of hours",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "duration",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "re-felt the shed roof"
+        },
+        {
+          "label": "DATE",
+          "text": "saturday"
+        },
+        {
+          "label": "TIME",
+          "text": "morning"
+        },
+        {
+          "label": "DURATION",
+          "text": "a couple of hours"
+        }
+      ],
+      "expect": {
+        "title": "re-felt the shed roof",
+        "due_date": "2026-09-19",
+        "due_time": "09:00",
+        "estimate_minutes": 120
+      }
+    },
+    {
+      "id": "mix-012",
+      "text": "put it on the list to book the dog groomer for Personal thursday",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "project"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the dog groomer"
+        },
+        {
+          "label": "PROJECT",
+          "text": "for Personal"
+        },
+        {
+          "label": "DATE",
+          "text": "thursday"
+        }
+      ],
+      "expect": {
+        "title": "book the dog groomer",
+        "project": "Personal",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "mix-013",
+      "text": "photocopy the deeds #Home Renovation @admin, matters a lot",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "tag",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "photocopy the deeds"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Home Renovation"
+        },
+        {
+          "label": "TAG",
+          "text": "@admin"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "matters a lot"
+        }
+      ],
+      "expect": {
+        "title": "photocopy the deeds",
+        "project": "Home Renovation",
+        "tags": [
+          "admin"
+        ],
+        "priority": "p2"
+      }
+    },
+    {
+      "id": "mix-014",
+      "text": "register for the webinar before 5, would be nice",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "time",
+        "soft-priority"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "register for the webinar"
+        },
+        {
+          "label": "TIME",
+          "text": "before 5"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "would be nice"
+        }
+      ],
+      "expect": {
+        "title": "register for the webinar",
+        "due_time": "17:00",
+        "priority": "p4",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "mix-015",
+      "text": "remember, polish the brass handles every month",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "recurrence"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "polish the brass handles"
+        },
+        {
+          "label": "RECURRENCE",
+          "text": "every month"
+        }
+      ],
+      "expect": {
+        "title": "polish the brass handles",
+        "recurrence": "Every month",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "mix-016",
+      "text": "reset the alarm code tuesday if the engineer turns up",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-clause",
+        "date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "reset the alarm code"
+        },
+        {
+          "label": "DATE",
+          "text": "tuesday"
+        }
+      ],
+      "expect": {
+        "title": "reset the alarm code",
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "mix-017",
+      "text": "update the emergency contacts friday // ask payroll for the new numbers",
+      "today": "2026-09-14",
+      "categories": [
+        "notes",
+        "date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "update the emergency contacts"
+        },
+        {
+          "label": "DATE",
+          "text": "friday"
+        },
+        {
+          "label": "NOTE",
+          "text": "ask payroll for the new numbers"
+        }
+      ],
+      "expect": {
+        "title": "update the emergency contacts",
+        "due_date": "2026-09-18",
+        "notes": "ask payroll for the new numbers"
+      }
+    },
+    {
+      "id": "mix-018",
+      "text": "renew the breakdown cover, ten minutes tops, can wait forever",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "soft-priority",
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the breakdown cover"
+        },
+        {
+          "label": "DURATION",
+          "text": "ten minutes tops"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "can wait forever"
+        }
+      ],
+      "expect": {
+        "title": "renew the breakdown cover",
+        "estimate_minutes": 10,
+        "priority": "p4"
+      }
+    },
+    {
+      "id": "mix-019",
+      "text": "i ought to arrange the skip hire first thing",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "arrange the skip hire"
+        },
+        {
+          "label": "TIME",
+          "text": "first thing"
+        }
+      ],
+      "expect": {
+        "title": "arrange the skip hire",
+        "due_time": "09:00",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "mix-020",
+      "text": "mend the gate latch +buy a new catch +drill the post",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "checklist"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "mend the gate latch"
+        },
+        {
+          "label": "STEP",
+          "text": "+buy a new catch"
+        },
+        {
+          "label": "STEP",
+          "text": "+drill the post"
+        }
+      ],
+      "expect": {
+        "title": "mend the gate latch",
+        "subtasks": [
+          "buy a new catch",
+          "drill the post"
+        ]
+      }
+    },
+    {
+      "id": "mix-021",
+      "text": "wash the car seat covers #Personal sunday ~45m",
+      "today": "2026-09-14",
+      "categories": [
+        "project",
+        "date",
+        "duration"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "wash the car seat covers"
+        },
+        {
+          "label": "PROJECT",
+          "text": "#Personal"
+        },
+        {
+          "label": "DATE",
+          "text": "sunday"
+        },
+        {
+          "label": "DURATION",
+          "text": "~45m"
+        }
+      ],
+      "expect": {
+        "title": "wash the car seat covers",
+        "project": "Personal",
+        "due_date": "2026-09-20",
+        "estimate_minutes": 45
+      }
+    },
+    {
+      "id": "mix-022",
+      "text": "whatever else happens, post the eBay parcels today, this cannot wait",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority",
+        "date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "post the eBay parcels"
+        },
+        {
+          "label": "DATE",
+          "text": "today"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "this cannot wait"
+        }
+      ],
+      "expect": {
+        "title": "post the eBay parcels",
+        "due_date": "2026-09-14",
+        "priority": "p1"
+      }
+    },
+    {
+      "id": "mix-023",
+      "text": "book a table for the anniversary monday at seven",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "time",
+        "date"
+      ],
+      "note": "Bare \"seven\" with no marker; evening assumed.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book a table for the anniversary"
+        },
+        {
+          "label": "DATE",
+          "text": "monday"
+        },
+        {
+          "label": "TIME",
+          "text": "at seven"
+        }
+      ],
+      "expect": {
+        "title": "book a table for the anniversary",
+        "due_date": "2026-09-21",
+        "due_time": "19:00"
+      }
+    },
+    {
+      "id": "mix-024",
+      "text": "collect the framed print wednesday if the shop has called",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the framed print"
+        },
+        {
+          "label": "DATE",
+          "text": "wednesday"
+        }
+      ],
+      "expect": {
+        "title": "collect the framed print",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "mix-025",
+      "text": "return the hire tools @errands tomorrow",
+      "today": "2026-09-14",
+      "categories": [
+        "date",
+        "tag"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "return the hire tools"
+        },
+        {
+          "label": "TAG",
+          "text": "@errands"
+        },
+        {
+          "label": "DATE",
+          "text": "tomorrow"
+        }
+      ],
+      "expect": {
+        "title": "return the hire tools",
+        "tags": [
+          "errands"
+        ],
+        "due_date": "2026-09-15"
+      }
+    },
+    {
+      "id": "mix-026",
+      "text": "on the list: cancel the magazine subscription // renewal hits on the 1st",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "notes"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "cancel the magazine subscription"
+        },
+        {
+          "label": "NOTE",
+          "text": "renewal hits on the 1st"
+        }
+      ],
+      "expect": {
+        "title": "cancel the magazine subscription",
+        "notes": "renewal hits on the 1st"
+      }
+    },
+    {
+      "id": "mix-027",
+      "text": "clear the loft hatch this evening, only if time allows",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "soft-priority",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "clear the loft hatch"
+        },
+        {
+          "label": "TIME",
+          "text": "this evening"
+        },
+        {
+          "label": "PRIORITY",
+          "text": "only if time allows"
+        }
+      ],
+      "expect": {
+        "title": "clear the loft hatch",
+        "due_time": "18:00",
+        "priority": "p4",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "conv-050",
+      "text": "stick descaling the shower head on the list",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "descaling the shower head"
+        }
+      ],
+      "expect": {
+        "title": "descaling the shower head"
+      }
+    },
+    {
+      "id": "conv-051",
+      "text": "someone ought to label the fuse box",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "label the fuse box"
+        }
+      ],
+      "expect": {
+        "title": "label the fuse box"
+      }
+    },
+    {
+      "id": "conv-052",
+      "text": "can we please replace the doormat before the weekend",
+      "today": "2026-09-16",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "replace the doormat"
+        },
+        {
+          "label": "DATE",
+          "text": "before the weekend"
+        }
+      ],
+      "expect": {
+        "title": "replace the doormat",
+        "due_date": "2026-09-19"
+      }
+    },
+    {
+      "id": "conv-053",
+      "text": "book the carpet cleaner assuming the quote is sensible",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "book the carpet cleaner"
+        }
+      ],
+      "expect": {
+        "title": "book the carpet cleaner"
+      }
+    },
+    {
+      "id": "conv-054",
+      "text": "note for later: order more printer toner",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "order more printer toner"
+        }
+      ],
+      "expect": {
+        "title": "order more printer toner"
+      }
+    },
+    {
+      "id": "conv-055",
+      "text": "while i remember, move the standing order thursday",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "move the standing order"
+        },
+        {
+          "label": "DATE",
+          "text": "thursday"
+        }
+      ],
+      "expect": {
+        "title": "move the standing order",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "conv-056",
+      "text": "tidy the tool wall once the new brackets arrive",
+      "today": "2026-09-18",
+      "categories": [
+        "conversational",
+        "filler-clause"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "tidy the tool wall"
+        }
+      ],
+      "expect": {
+        "title": "tidy the tool wall"
+      }
+    },
+    {
+      "id": "conv-057",
+      "text": "that reminds me, renew the club membership",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "renew the club membership"
+        }
+      ],
+      "expect": {
+        "title": "renew the club membership"
+      }
+    },
+    {
+      "id": "conv-058",
+      "text": "the hedge wants cutting before october",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "passive-voice"
+      ],
+      "note": "Passive; a tagger cannot reword.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "the hedge wants cutting"
+        },
+        {
+          "label": "DATE",
+          "text": "before october"
+        }
+      ],
+      "expect": {
+        "title": "cut the hedge",
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "conv-059",
+      "text": "honestly this one is overdue - refit the bathroom seal",
+      "today": "2026-09-14",
+      "categories": [
+        "conversational",
+        "filler-prefix",
+        "soft-priority"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "PRIORITY",
+          "text": "this one is overdue"
+        },
+        {
+          "label": "TITLE",
+          "text": "refit the bathroom seal"
+        }
+      ],
+      "expect": {
+        "priority": "p2",
+        "title": "refit the bathroom seal"
+      }
+    },
+    {
+      "id": "time-040",
+      "text": "phone the bank at twenty past nine",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "phone the bank"
+        },
+        {
+          "label": "TIME",
+          "text": "at twenty past nine"
+        }
+      ],
+      "expect": {
+        "title": "phone the bank",
+        "due_time": "09:20",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-041",
+      "text": "start the slow cooker around seven in the morning",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "start the slow cooker"
+        },
+        {
+          "label": "TIME",
+          "text": "around seven in the morning"
+        }
+      ],
+      "expect": {
+        "title": "start the slow cooker",
+        "due_time": "07:00",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-042",
+      "text": "lock up the yard at knocking off time",
+      "today": "2026-09-16",
+      "categories": [
+        "vague-time"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "lock up the yard"
+        },
+        {
+          "label": "TIME",
+          "text": "at knocking off time"
+        }
+      ],
+      "expect": {
+        "title": "lock up the yard",
+        "due_time": "17:00",
+        "due_date": "2026-09-16"
+      }
+    },
+    {
+      "id": "time-043",
+      "text": "join the standup call at 9:15",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "join the standup call"
+        },
+        {
+          "label": "TIME",
+          "text": "at 9:15"
+        }
+      ],
+      "expect": {
+        "title": "join the standup call",
+        "due_time": "09:15",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "time-044",
+      "text": "collect the kids quarter to four",
+      "today": "2026-09-14",
+      "categories": [
+        "fuzzy-time",
+        "time"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "collect the kids"
+        },
+        {
+          "label": "TIME",
+          "text": "quarter to four"
+        }
+      ],
+      "expect": {
+        "title": "collect the kids",
+        "due_time": "15:45",
+        "due_date": "2026-09-14"
+      }
+    },
+    {
+      "id": "date-050",
+      "text": "send the deposit receipt in a week",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "send the deposit receipt"
+        },
+        {
+          "label": "DATE",
+          "text": "in a week"
+        }
+      ],
+      "expect": {
+        "title": "send the deposit receipt",
+        "due_date": "2026-09-21"
+      }
+    },
+    {
+      "id": "date-051",
+      "text": "cancel the hire the day before friday",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "note": "Unusual phrasing; confirm the parser is expected to handle it at all.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "cancel the hire"
+        },
+        {
+          "label": "DATE",
+          "text": "the day before friday"
+        }
+      ],
+      "expect": {
+        "title": "cancel the hire",
+        "due_date": "2026-09-17"
+      }
+    },
+    {
+      "id": "date-052",
+      "text": "pay the ground rent by the 1st",
+      "today": "2026-09-16",
+      "categories": [
+        "day-of-month"
+      ],
+      "note": "Next occurrence of the 1st is in October.",
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "pay the ground rent"
+        },
+        {
+          "label": "DATE",
+          "text": "by the 1st"
+        }
+      ],
+      "expect": {
+        "title": "pay the ground rent",
+        "due_date": "2026-10-01"
+      }
+    },
+    {
+      "id": "date-053",
+      "text": "submit the timesheet end of the week",
+      "today": "2026-09-14",
+      "categories": [
+        "relative-date"
+      ],
+      "review": true,
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "submit the timesheet"
+        },
+        {
+          "label": "DATE",
+          "text": "end of the week"
+        }
+      ],
+      "expect": {
+        "title": "submit the timesheet",
+        "due_date": "2026-09-18"
+      }
+    },
+    {
+      "id": "date-054",
+      "text": "take the recycling out tonight",
+      "today": "2026-09-18",
+      "categories": [
+        "relative-date"
+      ],
+      "spans": [
+        {
+          "label": "TITLE",
+          "text": "take the recycling out"
+        },
+        {
+          "label": "DATE",
+          "text": "tonight"
+        }
+      ],
+      "expect": {
+        "title": "take the recycling out",
+        "due_date": "2026-09-18"
+      }
+    }
+  ]
+}
